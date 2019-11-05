@@ -60,10 +60,10 @@ public class encoder_test extends LinearOpMode
 
 
 
-        forward(300);
-        strafe_right(300);
-        backward(300);
-        strafe_left(300);
+        forward(200);
+        strafe_right(200);
+        backward(200);
+        strafe_left(200);
 
 
 

@@ -15,7 +15,7 @@ public class mecanum extends OpMode
 
     private static final double TRIGGERTHRESHOLD = .2     ;
     private static final double ACCEPTINPUTTHRESHOLD = .15;
-    private static final double SCALEDPOWER = 0.7; //Emphasis on current controller reading (vs current motor power) on the drive train
+    private static final double SCALEDPOWER = 1; //Emphasis on current controller reading (vs current motor power) on the drive train
 
     private static DcMotor l1, l2, r1, r2, i1, i2, a;
   //  private static Servo r, c;
@@ -26,15 +26,15 @@ public class mecanum extends OpMode
     public void init()
     //this is where the lines for init-ing and reversing goes
     {
-        l1  = hardwareMap.dcMotor.get(UniversalConstants.l1) ;
+        l1   = hardwareMap.dcMotor.get(UniversalConstants.l1) ;
         l2   = hardwareMap.dcMotor.get(UniversalConstants.l2) ;
-        r1 = hardwareMap.dcMotor.get(UniversalConstants.r1);
-        r2  = hardwareMap.dcMotor.get(UniversalConstants.r2);
+        r1   = hardwareMap.dcMotor.get(UniversalConstants.r1);
+        r2   = hardwareMap.dcMotor.get(UniversalConstants.r2);
 
-        i1  = hardwareMap.dcMotor.get(UniversalConstants.i1);
-        i2  = hardwareMap.dcMotor.get(UniversalConstants.i2);
+        i1   = hardwareMap.dcMotor.get(UniversalConstants.i1);
+        i2   = hardwareMap.dcMotor.get(UniversalConstants.i2);
 
-        a = hardwareMap.dcMotor.get(UniversalConstants.a);
+      //  a = hardwareMap.dcMotor.get(UniversalConstants.a);
 
        // r = hardwareMap.servo.get(UniversalConstants.r);
 
@@ -100,7 +100,7 @@ public class mecanum extends OpMode
 //--------------------------------------------------------------------------------------------------
 
         //arm control
-
+/*
         if (gamepad1.dpad_up)
         {
             a.setPower(1);
@@ -117,9 +117,9 @@ public class mecanum extends OpMode
         }
         else
         {
-            i1.setPower(0);
+            a.setPower(0);
         }
-
+*/
 //--------------------------------------------------------------------------------------------------
         //intake motor control
 
@@ -181,9 +181,11 @@ public class mecanum extends OpMode
 
         double scaledPower = SCALEDPOWER;
 
+
         leftFront.setPower(leftFrontVal*scaledPower+leftFront.getPower()*(1-scaledPower))    ;
         rightFront.setPower(rightFrontVal*scaledPower+rightFront.getPower()*(1-scaledPower)) ;
         leftBack.setPower(leftBackVal*scaledPower+leftBack.getPower()*(1-scaledPower))       ;
         rightBack.setPower(rightBackVal*scaledPower+rightBack.getPower()*(1-scaledPower))    ;
+        
     }
 }
