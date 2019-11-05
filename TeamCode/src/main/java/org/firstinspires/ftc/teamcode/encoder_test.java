@@ -26,10 +26,6 @@ public class encoder_test extends LinearOpMode
         r1 = hardwareMap.dcMotor.get("r1");
         r2 = hardwareMap.dcMotor.get("r2");
 
-        l1.setDirection(DcMotorSimple.Direction.REVERSE);
-        l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
-        r1.setDirection(DcMotorSimple.Direction.REVERSE);
-        r2.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         // reset encoder count kept by left motor.
@@ -41,12 +37,11 @@ public class encoder_test extends LinearOpMode
 
 
         // reverse opposite facing motors
-        //leftMotor.setDirection(DcMotor.Direction.REVERSE);
-        //leftMotor.setDirection(DcMotor.Direction.REVERSE);
+        // l1.setDirection(DcMotorSimple.Direction.REVERSE);
+        // l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
+        // r1.setDirection(DcMotorSimple.Direction.REVERSE);
+        // r2.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        // set certain motors to run without regard to an encoder.
-        //l1.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        //l2.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         telemetry.addData("Mode", "waiting");
         telemetry.update();
@@ -88,10 +83,10 @@ public class encoder_test extends LinearOpMode
         r1.setTargetPosition(300);
         r2.setTargetPosition(300);
 
-        l1.setPower(1);
-        l2.setPower(1);
-        r1.setPower(1);
-        r2.setPower(1);
+        l1.setPower(-1);
+        l2.setPower(-1);
+        r1.setPower(-1);
+        r2.setPower(-1);
 
         l1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         l2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -114,10 +109,10 @@ public class encoder_test extends LinearOpMode
         r1.setTargetPosition(300);
         r2.setTargetPosition(300);
 
-        l1.setPower(-1);
-        l2.setPower(-1);
-        r1.setPower(-1);
-        r2.setPower(-1);
+        l1.setPower(1);
+        l2.setPower(1);
+        r1.setPower(1);
+        r2.setPower(1);
 
         l1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         l2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -139,10 +134,10 @@ public class encoder_test extends LinearOpMode
         r1.setTargetPosition(300);
         r2.setTargetPosition(300);
 
-        l1.setPower(-1);
-        l2.setPower(1);
-        r1.setPower(1);
-        r2.setPower(-1);
+        l1.setPower(1);
+        l2.setPower(-1);
+        r1.setPower(-1);
+        r2.setPower(1);
 
         l1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         l2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -164,10 +159,10 @@ public class encoder_test extends LinearOpMode
         r1.setTargetPosition(300);
         r2.setTargetPosition(300);
 
-        l1.setPower(1);
-        l2.setPower(-1);
-        r1.setPower(-1);
-        r2.setPower(1);
+        l1.setPower(-1);
+        l2.setPower(1);
+        r1.setPower(1);
+        r2.setPower(-1);
 
         l1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         l2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
