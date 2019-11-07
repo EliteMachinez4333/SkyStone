@@ -9,13 +9,10 @@ buildscript {
         jcenter()
     }
     dependencies {
-<<<<<<< Updated upstream
         classpath 'com.android.tools.build:gradle:3.5.2'
-=======
         classpath 'com.android.tools.build:gradle:3.5.1'
     //    implementation 'com.github.dogecv:dogecommander:v1.0.0'
     //    implementation 'com.github.dogecv:dogecv:2020.4-alpha'
->>>>>>> Stashed changes
     }
 }
 
