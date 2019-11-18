@@ -12,5 +12,6 @@ public class UniversalConstants
     static final String r       = "r";
     static final String c       = "c";
     static final String T       = "t";
+    static final String testServo = "testServo";
 }
 
