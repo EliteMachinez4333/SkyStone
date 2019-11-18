@@ -11,10 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo          ;
 @Autonomous(name="encoder_test", group="Autonomous")
 public class encoder_test extends LinearOpMode
 {
-    private static DcMotor l1;
-    private static DcMotor l2;
-    private static DcMotor r1;
-    private static DcMotor r2;
+    private static DcMotor l1, l2, r1, r2, i1, i2;
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
