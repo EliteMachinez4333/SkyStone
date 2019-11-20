@@ -8,9 +8,8 @@ public class UniversalConstants
     static final String r2      = "r2";
     static final String i1      = "i1";
     static final String i2      = "i2";
-    static final String a       = "a";
-    static final String r       = "r";
-    static final String c       = "c";
+    static final String topArm       = "topArm";
+    static final String bottomArm    = "bottomArm";
     static final String T       = "t";
     static final String testServo = "testServo";
 }

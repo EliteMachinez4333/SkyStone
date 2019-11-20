@@ -30,7 +30,7 @@ public class servo_test extends OpMode
     public void loop()
     {
 
-        testServo.setPosition(1);
+        testServo.setPosition(0);
 
     }
 
