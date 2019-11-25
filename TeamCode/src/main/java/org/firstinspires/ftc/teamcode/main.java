@@ -17,7 +17,7 @@ public class main extends OpMode
     private static final double ACCEPTINPUTTHRESHOLD = .15;
     private static final double SCALEDPOWER = 1; //Emphasis on current controller reading (vs current motor power) on the drive train
 
-    private static DcMotor l1, l2, r1, r2, topArm, bottomArm;
+    private static DcMotor l1, l2, r1, r2, topArm, bottomArm1, bottomArm2;
     //  private static Servo r, c;
 
 //--------------------------------------------------------------------------------------------------
@@ -32,7 +32,9 @@ public class main extends OpMode
         r2   = hardwareMap.dcMotor.get(UniversalConstants.r2);
 
         topArm   = hardwareMap.dcMotor.get(UniversalConstants.topArm);
-        bottomArm   = hardwareMap.dcMotor.get(UniversalConstants.bottomArm);
+
+        bottomArm1   = hardwareMap.dcMotor.get(UniversalConstants.bottomArm1);
+        bottomArm2   = hardwareMap.dcMotor.get(UniversalConstants.bottomArm2);
 
         //reverse all but rightFrontWheel, because of the way that the REV motors are oriented
         l1.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -40,6 +42,8 @@ public class main extends OpMode
         r1.setDirection(DcMotorSimple.Direction.REVERSE);
         r2.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        bottomArm2.setDirection(DcMotorSimple.Direction.REVERSE)
+        ;
         double volts = hardwareMap.voltageSensor.get("Expansion Hub 2").getVoltage();
     }
 //--------------------------------------------------------------------------------------------------
@@ -54,7 +58,9 @@ public class main extends OpMode
         //topArm control
 
         topArm.setPower(0.5 * gamepad2.left_stick_y);
-        bottomArm.setPower(0.5 * gamepad2.right_stick_y);
+        bottomArm1.setPower(0.5 * gamepad2.right_stick_y);
+        bottomArm2.setPower(0.5 * gamepad2.right_stick_y);
+
 
 //--------------------------------------------------------------------------------------------------
 

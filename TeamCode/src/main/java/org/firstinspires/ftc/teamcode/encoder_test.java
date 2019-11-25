@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo          ;
 @Autonomous(name="encoder_test", group="Autonomous")
 public class encoder_test extends LinearOpMode
 {
-    private static DcMotor l1, l2, r1, r2, i1, i2;
+    private static DcMotor l1, l2, r1, r2;
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -73,12 +73,12 @@ public class encoder_test extends LinearOpMode
 
     //methods
 
-    public void forward (double ticks)
+    public void forward (int ticks)
     {
-        l1.setTargetPosition(300);
-        l2.setTargetPosition(300);
-        r1.setTargetPosition(300);
-        r2.setTargetPosition(300);
+        l1.setTargetPosition(ticks);
+        l2.setTargetPosition(ticks);
+        r1.setTargetPosition(ticks);
+        r2.setTargetPosition(ticks);
 
         l1.setPower(-1);
         l2.setPower(-1);
@@ -99,12 +99,12 @@ public class encoder_test extends LinearOpMode
 
     }
 
-    public void backward (double ticks)
+    public void backward (int ticks)
     {
-        l1.setTargetPosition(300);
-        l2.setTargetPosition(300);
-        r1.setTargetPosition(300);
-        r2.setTargetPosition(300);
+        l1.setTargetPosition(ticks);
+        l2.setTargetPosition(ticks);
+        r1.setTargetPosition(ticks);
+        r2.setTargetPosition(ticks);
 
         l1.setPower(1);
         l2.setPower(1);
@@ -124,12 +124,12 @@ public class encoder_test extends LinearOpMode
         r2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
-    public void strafe_left (double ticks)
+    public void strafe_left (int ticks)
     {
-        l1.setTargetPosition(300);
-        l2.setTargetPosition(300);
-        r1.setTargetPosition(300);
-        r2.setTargetPosition(300);
+        l1.setTargetPosition(ticks);
+        l2.setTargetPosition(ticks);
+        r1.setTargetPosition(ticks);
+        r2.setTargetPosition(ticks);
 
         l1.setPower(1);
         l2.setPower(-1);
@@ -149,12 +149,12 @@ public class encoder_test extends LinearOpMode
         r2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
-    public void strafe_right (double ticks)
+    public void strafe_right (int ticks)
     {
-        l1.setTargetPosition(300);
-        l2.setTargetPosition(300);
-        r1.setTargetPosition(300);
-        r2.setTargetPosition(300);
+        l1.setTargetPosition(ticks);
+        l2.setTargetPosition(ticks);
+        r1.setTargetPosition(ticks);
+        r2.setTargetPosition(ticks);
 
         l1.setPower(-1);
         l2.setPower(1);
