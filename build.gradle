@@ -11,17 +11,17 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.2'
         classpath 'com.android.tools.build:gradle:3.5.1'
-    //    implementation 'com.github.dogecv:dogecommander:v1.0.0'
-    //    implementation 'com.github.dogecv:dogecv:2020.4-alpha'
+      //  implementation 'com.github.dogecv:dogecommander:Tag'
     }
 }
 
 // This is now required because aapt2 has to be downloaded from the
 // google() repository beginning with version 3.2 of the Android Gradle Plugin
 allprojects {
-    repositories {
-        maven { url 'https://jitpack.io' }
-        google()
-        jcenter()
+    repositories
+            {
+                google()
+                jcenter()
+                maven { url 'https://jitpack.io' }
             }
 }

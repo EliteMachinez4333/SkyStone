@@ -13,3 +13,13 @@
 
 // Include common definitions from above.
 apply from: '../build.common.gradle'
+
+dependencies{
+    implementation 'com.github.dogecv:dogecommander:v1.0.0'
+}
+
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' } // this line!
+    }
+}
