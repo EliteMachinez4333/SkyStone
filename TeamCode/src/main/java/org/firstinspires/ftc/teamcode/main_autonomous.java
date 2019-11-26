@@ -8,13 +8,11 @@ import com.qualcomm.robotcore.hardware.DcMotor        ;
 import com.qualcomm.robotcore.hardware.DcMotorSimple  ;
 import com.qualcomm.robotcore.hardware.Servo          ;
 
-@Autonomous(name="blue_bridge", group="Autonomous")
-public class blue_bridge extends LinearOpMode
+@Autonomous(name="Main", group="Autonomous")
+public class main_autonomous extends LinearOpMode
 {
-    private static DcMotor l1, l2, r1, r2, i1, i2;
+    private static DcMotor l1, l2, r1, r2;
 
-
-    //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     @Override
     public void runOpMode() throws InterruptedException
     {
@@ -23,22 +21,17 @@ public class blue_bridge extends LinearOpMode
         r1 = hardwareMap.dcMotor.get("r1");
         r2 = hardwareMap.dcMotor.get("r2");
 
-
-
         // reset encoder count kept by left motor.
         l1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         l2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         r1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         r2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-
-
         // reverse opposite facing motors
         // l1.setDirection(DcMotorSimple.Direction.REVERSE);
         // l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
         // r1.setDirection(DcMotorSimple.Direction.REVERSE);
         // r2.setDirection(DcMotorSimple.Direction.REVERSE);
-
 
         telemetry.addData("Mode", "waiting");
         telemetry.update();
@@ -50,50 +43,8 @@ public class blue_bridge extends LinearOpMode
         telemetry.addData("Mode", "running");
         telemetry.update();
 
-
-
-        forward(200);
-        strafe_right(200);
-        forward(200);
-        strafe_left(200);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+       
+        forward(100);
 
 
 
@@ -103,24 +54,25 @@ public class blue_bridge extends LinearOpMode
 
     //methods
 
-    public void forward (double ticks)
+    //forward method
+    public void forward (int ticks)
     {
-        l1.setTargetPosition(300);
-        l2.setTargetPosition(300);
-        r1.setTargetPosition(300);
-        r2.setTargetPosition(300);
+        l1.setTargetPosition(ticks);
+        l2.setTargetPosition(ticks);
+        r1.setTargetPosition(ticks);
+        r2.setTargetPosition(ticks);
 
-        l1.setPower(-1);
-        l2.setPower(-1);
-        r1.setPower(-1);
-        r2.setPower(-1);
+        l1.setPower(-0.5);
+        l2.setPower(-0.5);
+        r1.setPower(-0.5);
+        r2.setPower(-0.5);
 
         l1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         l2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        sleep(3000);
+        sleep(5000);
 
         l1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         l2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -129,24 +81,25 @@ public class blue_bridge extends LinearOpMode
 
     }
 
-    public void backward (double ticks)
+    //backward method
+    public void backward (int ticks)
     {
-        l1.setTargetPosition(300);
-        l2.setTargetPosition(300);
-        r1.setTargetPosition(300);
-        r2.setTargetPosition(300);
+        l1.setTargetPosition(ticks);
+        l2.setTargetPosition(ticks);
+        r1.setTargetPosition(ticks);
+        r2.setTargetPosition(ticks);
 
-        l1.setPower(1);
-        l2.setPower(1);
-        r1.setPower(1);
-        r2.setPower(1);
+        l1.setPower(0.5);
+        l2.setPower(0.5);
+        r1.setPower(0.5);
+        r2.setPower(0.5);
 
         l1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         l2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        sleep(3000);
+        sleep(5000);
 
         l1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         l2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -154,24 +107,25 @@ public class blue_bridge extends LinearOpMode
         r2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
-    public void strafe_left (double ticks)
+    //strafe left method
+    public void strafe_left (int ticks)
     {
-        l1.setTargetPosition(300);
-        l2.setTargetPosition(300);
-        r1.setTargetPosition(300);
-        r2.setTargetPosition(300);
+        l1.setTargetPosition(ticks);
+        l2.setTargetPosition(ticks);
+        r1.setTargetPosition(ticks);
+        r2.setTargetPosition(ticks);
 
-        l1.setPower(1);
-        l2.setPower(-1);
-        r1.setPower(-1);
-        r2.setPower(1);
+        l1.setPower(0.5);
+        l2.setPower(-0.5);
+        r1.setPower(-0.5);
+        r2.setPower(0.5);
 
         l1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         l2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        sleep(3000);
+        sleep(5000);
 
         l1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         l2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -179,24 +133,25 @@ public class blue_bridge extends LinearOpMode
         r2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
-    public void strafe_right (double ticks)
+    //strafe right method
+    public void strafe_right (int ticks)
     {
-        l1.setTargetPosition(300);
-        l2.setTargetPosition(300);
-        r1.setTargetPosition(300);
-        r2.setTargetPosition(300);
+        l1.setTargetPosition(ticks);
+        l2.setTargetPosition(ticks);
+        r1.setTargetPosition(ticks);
+        r2.setTargetPosition(ticks);
 
-        l1.setPower(-1);
-        l2.setPower(1);
-        r1.setPower(1);
-        r2.setPower(-1);
+        l1.setPower(-0.5);
+        l2.setPower(0.5);
+        r1.setPower(0.5);
+        r2.setPower(-0.5);
 
         l1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         l2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        sleep(3000);
+        sleep(5000);
 
         l1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         l2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

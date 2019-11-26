@@ -9,13 +9,13 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import java.util.Arrays;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="main", group="TeleOp")
-public class main extends OpMode
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Main", group="TeleOp")
+public class main_teleop extends OpMode
 {
 
-    private static final double TRIGGERTHRESHOLD = .2     ;
-    private static final double ACCEPTINPUTTHRESHOLD = .15;
-    private static final double SCALEDPOWER = 1; //Emphasis on current controller reading (vs current motor power) on the drive train
+    private static final double TRIGGERTHRESHOLD = 0.2     ;
+    private static final double ACCEPTINPUTTHRESHOLD = 0.1;
+    private static final double SCALEDPOWER = 0.5; //Emphasis on current controller reading (vs current motor power) on the drive train
 
     private static DcMotor l1, l2, r1, r2, topArm, bottomArm1, bottomArm2;
     //  private static Servo r, c;
@@ -26,24 +26,25 @@ public class main extends OpMode
     public void init()
     //this is where the lines for init-ing and reversing goes
     {
-        l1   = hardwareMap.dcMotor.get(UniversalConstants.l1) ;
-        l2   = hardwareMap.dcMotor.get(UniversalConstants.l2) ;
-        r1   = hardwareMap.dcMotor.get(UniversalConstants.r1);
-        r2   = hardwareMap.dcMotor.get(UniversalConstants.r2);
+        l1           = hardwareMap.dcMotor.get(UniversalConstants.l1) ;
+        l2           = hardwareMap.dcMotor.get(UniversalConstants.l2) ;
+        r1           = hardwareMap.dcMotor.get(UniversalConstants.r1);
+        r2           = hardwareMap.dcMotor.get(UniversalConstants.r2);
 
-        topArm   = hardwareMap.dcMotor.get(UniversalConstants.topArm);
+        topArm       = hardwareMap.dcMotor.get(UniversalConstants.topArm);
 
         bottomArm1   = hardwareMap.dcMotor.get(UniversalConstants.bottomArm1);
         bottomArm2   = hardwareMap.dcMotor.get(UniversalConstants.bottomArm2);
 
-        //reverse all but rightFrontWheel, because of the way that the REV motors are oriented
+
         l1.setDirection(DcMotorSimple.Direction.REVERSE);
         l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
         r1.setDirection(DcMotorSimple.Direction.REVERSE);
         r2.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        bottomArm2.setDirection(DcMotorSimple.Direction.REVERSE)
-        ;
+        bottomArm2.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
         double volts = hardwareMap.voltageSensor.get("Expansion Hub 2").getVoltage();
     }
 //--------------------------------------------------------------------------------------------------
@@ -56,10 +57,11 @@ public class main extends OpMode
 //--------------------------------------------------------------------------------------------------
 
         //topArm control
+        topArm.setPower(0.2 * gamepad2.left_stick_y);
 
-        topArm.setPower(0.5 * gamepad2.left_stick_y);
-        bottomArm1.setPower(0.5 * gamepad2.right_stick_y);
-        bottomArm2.setPower(0.5 * gamepad2.right_stick_y);
+        //bottomArm control
+        bottomArm1.setPower(0.2 * gamepad2.right_stick_y);
+        bottomArm2.setPower(0.2 * gamepad2.right_stick_y);
 
 
 //--------------------------------------------------------------------------------------------------
@@ -67,7 +69,6 @@ public class main extends OpMode
         //mecanum drivetrain control
 
         //moves mecanum wheel motors based on absolute values from the sticks that take into account rotation
-        //strafing works
         double inputY = Math.abs(gamepad1.left_stick_y) > ACCEPTINPUTTHRESHOLD ? gamepad1.left_stick_y : 0 ;
         double inputX = Math.abs(gamepad1.left_stick_x) > ACCEPTINPUTTHRESHOLD ? -gamepad1.left_stick_x : 0;
         double inputC = Math.abs(gamepad1.right_stick_x)> ACCEPTINPUTTHRESHOLD ? -gamepad1.right_stick_x: 0;
