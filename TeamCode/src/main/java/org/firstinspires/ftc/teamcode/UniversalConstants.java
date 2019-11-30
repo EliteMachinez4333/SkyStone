@@ -14,6 +14,11 @@ public class UniversalConstants
     static final String bottomArm1    = "bottomArm1";
     static final String bottomArm2    = "bottomArm2";
 
+    static final String arm1    = "arm1";
+    static final String arm2    = "arm2";
+
+    static final String claw    = "claw";
+
     static final String T       = "t";
     static final String testServo = "testServo";
 }

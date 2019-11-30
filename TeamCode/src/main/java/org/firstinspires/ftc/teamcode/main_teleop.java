@@ -17,7 +17,8 @@ public class main_teleop extends OpMode
     private static final double ACCEPTINPUTTHRESHOLD = 0.1;
     private static final double SCALEDPOWER = 0.5; //Emphasis on current controller reading (vs current motor power) on the drive train
 
-    private static DcMotor l1, l2, r1, r2, topArm, bottomArm1, bottomArm2;
+    private static DcMotor l1, l2, r1, r2, arm1, arm2;
+    private static Servo claw;
     //  private static Servo r, c;
 
 //--------------------------------------------------------------------------------------------------
@@ -31,18 +32,16 @@ public class main_teleop extends OpMode
         r1           = hardwareMap.dcMotor.get(UniversalConstants.r1);
         r2           = hardwareMap.dcMotor.get(UniversalConstants.r2);
 
-        topArm       = hardwareMap.dcMotor.get(UniversalConstants.topArm);
+        arm1   = hardwareMap.dcMotor.get(UniversalConstants.arm1);
+        arm2   = hardwareMap.dcMotor.get(UniversalConstants.arm2);
 
-        bottomArm1   = hardwareMap.dcMotor.get(UniversalConstants.bottomArm1);
-        bottomArm2   = hardwareMap.dcMotor.get(UniversalConstants.bottomArm2);
+        claw = hardwareMap.servo.get(UniversalConstants.claw);
 
 
         l1.setDirection(DcMotorSimple.Direction.REVERSE);
         l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
         r1.setDirection(DcMotorSimple.Direction.REVERSE);
         r2.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        bottomArm2.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
         double volts = hardwareMap.voltageSensor.get("Expansion Hub 2").getVoltage();
@@ -56,13 +55,28 @@ public class main_teleop extends OpMode
     {
 //--------------------------------------------------------------------------------------------------
 
-        //topArm control
-        topArm.setPower(0.2 * gamepad2.left_stick_y);
+        //arm control
+        arm1.setPower(0.5 * gamepad2.left_stick_y);
+        arm2.setPower(0.5 * gamepad2.left_stick_y);
 
-        //bottomArm control
-        bottomArm1.setPower(0.2 * gamepad2.right_stick_y);
-        bottomArm2.setPower(0.2 * gamepad2.right_stick_y);
+        //claw control
+        if (gamepad2.a)
+        {
+            claw.setPosition(1);
+        }
+        else
+            {
+            claw.setPosition(0);
+            }
 
+        if (gamepad2.y)
+        {
+            claw.setPosition(-1);
+        }
+        else
+            {
+                claw.setPosition(0);
+            }
 
 //--------------------------------------------------------------------------------------------------
 
