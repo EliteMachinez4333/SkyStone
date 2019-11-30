@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import java.util.Arrays;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Main", group="TeleOp")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Main teleop", group="TeleOp")
 public class main_teleop extends OpMode
 {
 
@@ -17,8 +17,7 @@ public class main_teleop extends OpMode
     private static final double ACCEPTINPUTTHRESHOLD = 0.1;
     private static final double SCALEDPOWER = 0.5; //Emphasis on current controller reading (vs current motor power) on the drive train
 
-    private static DcMotor l1, l2, r1, r2, arm1, arm2;
-    private static Servo claw;
+    private static DcMotor l1, l2, r1, r2, arm1, arm2, claw;
     //  private static Servo r, c;
 
 //--------------------------------------------------------------------------------------------------
@@ -35,13 +34,15 @@ public class main_teleop extends OpMode
         arm1   = hardwareMap.dcMotor.get(UniversalConstants.arm1);
         arm2   = hardwareMap.dcMotor.get(UniversalConstants.arm2);
 
-        claw = hardwareMap.servo.get(UniversalConstants.claw);
+        claw = hardwareMap.dcMotor.get(UniversalConstants.claw);
 
 
         l1.setDirection(DcMotorSimple.Direction.REVERSE);
         l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
         r1.setDirection(DcMotorSimple.Direction.REVERSE);
         r2.setDirection(DcMotorSimple.Direction.REVERSE);
+        arm1.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
 
         double volts = hardwareMap.voltageSensor.get("Expansion Hub 2").getVoltage();
@@ -56,26 +57,26 @@ public class main_teleop extends OpMode
 //--------------------------------------------------------------------------------------------------
 
         //arm control
-        arm1.setPower(0.5 * gamepad2.left_stick_y);
-        arm2.setPower(0.5 * gamepad2.left_stick_y);
+        arm1.setPower(1 * gamepad2.left_stick_y);
+        arm2.setPower(1 * gamepad2.left_stick_y);
 
         //claw control
         if (gamepad2.a)
         {
-            claw.setPosition(1);
+            claw.setPower(1);
         }
         else
             {
-            claw.setPosition(0);
+            claw.setPower(0);
             }
 
         if (gamepad2.y)
         {
-            claw.setPosition(-1);
+            claw.setPower(0.6 * -1);
         }
         else
             {
-                claw.setPosition(0);
+                claw.setPower(0);
             }
 
 //--------------------------------------------------------------------------------------------------

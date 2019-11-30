@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor        ;
 import com.qualcomm.robotcore.hardware.DcMotorSimple  ;
 import com.qualcomm.robotcore.hardware.Servo          ;
 
-@Autonomous(name="Main", group="Autonomous")
+@Autonomous(name="Main auto", group="Autonomous")
 public class main_autonomous extends LinearOpMode
 {
     private static DcMotor l1, l2, r1, r2;
