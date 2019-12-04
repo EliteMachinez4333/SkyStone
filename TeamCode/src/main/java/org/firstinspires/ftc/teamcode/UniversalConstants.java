@@ -7,6 +7,10 @@ public class UniversalConstants
     static final String r1      = "r1";
     static final String r2      = "r2";
 
+    static final String linearSlide1 = "linearSlide1";
+    static final String linearSlide2 = "linearSlide2";
+
+
     static final String i1      = "i1";
     static final String i2      = "i2";
 

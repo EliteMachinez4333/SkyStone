@@ -44,7 +44,7 @@ public class main_autonomous extends LinearOpMode
         telemetry.update();
 
 
-        forward(100);
+        forward(500);
 
 
 

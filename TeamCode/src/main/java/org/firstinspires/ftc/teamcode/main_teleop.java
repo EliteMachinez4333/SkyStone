@@ -57,8 +57,11 @@ public class main_teleop extends OpMode
 //--------------------------------------------------------------------------------------------------
 
         //arm control
-        arm1.setPower(1 * gamepad2.left_stick_y);
-        arm2.setPower(1 * gamepad2.left_stick_y);
+        arm1.setPower(0.6 * gamepad2.left_stick_y);
+        arm2.setPower(0.6 * gamepad2.left_stick_y);
+
+
+
 
         //claw control
         if (gamepad2.a)
