@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import java.util.Arrays;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="mecanum0", group="TeleOp")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="mecanum + linearslide + claw", group="TeleOp")
 public class mecanum_and_linear_slide extends OpMode
 {
 
