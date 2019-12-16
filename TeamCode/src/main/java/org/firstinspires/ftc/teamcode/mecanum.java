@@ -31,15 +31,6 @@ public class mecanum extends OpMode
         r1   = hardwareMap.dcMotor.get(UniversalConstants.r1);
         r2   = hardwareMap.dcMotor.get(UniversalConstants.r2);
 
-        i1   = hardwareMap.dcMotor.get(UniversalConstants.i1);
-        i2   = hardwareMap.dcMotor.get(UniversalConstants.i2);
-
-      //  a = hardwareMap.dcMotor.get(UniversalConstants.a);
-
-       // r = hardwareMap.servo.get(UniversalConstants.r);
-
-       // c = hardwareMap.servo.get(UniversalConstants.c);
-
         //reverse all but rightFrontWheel, because of the way that the REV motors are oriented
         l1.setDirection(DcMotorSimple.Direction.REVERSE);
         l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
@@ -57,93 +48,11 @@ public class mecanum extends OpMode
     {
 //--------------------------------------------------------------------------------------------------
 
-/*
-
-        //rotating wrist control
-
-        if (gamepad2.dpad_right)
-        {
-            r.setPosition(1);
-        }
-        else if (gamepad2.dpad_left)
-        {
-            r.setPosition(-1);
-        }
-
-        else
-        {
-            r.setPosition(0.5);
-        }
-
-//--------------------------------------------------------------------------------------------------
-
-        //claw control
-
-        if (gamepad2.x)
-        {
-            c.setPosition(1);
-        }
-        else if (gamepad2.b)
-        {
-            c.setPosition(-1);
-        }
-
-        else
-        {
-            c.setPosition(0.5);
-        }
 
 
 
- */
-
-//--------------------------------------------------------------------------------------------------
-
-        //arm control
-/*
-        if (gamepad1.dpad_up)
-        {
-            a.setPower(1);
-        }
-        else
-        {
-            a.setPower(0);
-        }
 
 
-        if (gamepad1.dpad_down)
-        {
-            a.setPower(-1);
-        }
-        else
-        {
-            a.setPower(0);
-        }
-*/
-//--------------------------------------------------------------------------------------------------
-        //intake motor control
-
-        if (gamepad1.a)
-        {
-            i1.setPower(-1);
-            i2.setPower(1);
-        }
-        else
-        {
-            i1.setPower(0);
-            i2.setPower(0);
-        }
-
-        if (gamepad1.y)
-        {
-            i1.setPower(1);
-            i2.setPower(-1);
-        }
-        else
-        {
-            i1.setPower(0);
-            i2.setPower(0);
-        }
 
 //--------------------------------------------------------------------------------------------------
 

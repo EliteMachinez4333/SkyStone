@@ -17,7 +17,7 @@ public class main_teleop extends OpMode
     private static final double ACCEPTINPUTTHRESHOLD = 0.1;
     private static final double SCALEDPOWER = 0.5; //Emphasis on current controller reading (vs current motor power) on the drive train
 
-    private static DcMotor l1, l2, r1, r2, arm1, arm2, claw;
+    private static DcMotor l1, l2, r1, r2, linearSlide, claw;
     //  private static Servo r, c;
 
 //--------------------------------------------------------------------------------------------------
@@ -31,19 +31,14 @@ public class main_teleop extends OpMode
         r1           = hardwareMap.dcMotor.get(UniversalConstants.r1);
         r2           = hardwareMap.dcMotor.get(UniversalConstants.r2);
 
-        arm1   = hardwareMap.dcMotor.get(UniversalConstants.arm1);
-        arm2   = hardwareMap.dcMotor.get(UniversalConstants.arm2);
+        linearSlide   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide);
 
         claw = hardwareMap.dcMotor.get(UniversalConstants.claw);
-
 
         l1.setDirection(DcMotorSimple.Direction.REVERSE);
         l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
         r1.setDirection(DcMotorSimple.Direction.REVERSE);
         r2.setDirection(DcMotorSimple.Direction.REVERSE);
-        arm1.setDirection(DcMotorSimple.Direction.REVERSE);
-
-
 
         double volts = hardwareMap.voltageSensor.get("Expansion Hub 2").getVoltage();
     }
@@ -56,31 +51,52 @@ public class main_teleop extends OpMode
     {
 //--------------------------------------------------------------------------------------------------
 
-        //arm control
-        arm1.setPower(0.6 * gamepad2.left_stick_y);
-        arm2.setPower(0.6 * gamepad2.left_stick_y);
+        //linear slide control
 
+        if (gamepad1.dpad_up)
+            {
+                linearSlide.setPower(1);
+            }
+        else
+            {
+                linearSlide.setPower(0);
+            }
+
+
+
+        if (gamepad1.dpad_down)
+            {
+                linearSlide.setPower(-0.5);
+            }
+        else
+            {
+                linearSlide.setPower(0);
+                linearSlide.setPower(0);
+            }
 
 
 
         //claw control
         if (gamepad2.a)
-        {
-            claw.setPower(1);
-        }
-        else
             {
-            claw.setPower(0);
+                claw.setPower(1);
             }
-
-        if (gamepad2.y)
-        {
-            claw.setPower(0.6 * -1);
-        }
         else
             {
                 claw.setPower(0);
             }
+
+        if (gamepad2.y)
+            {
+                claw.setPower(0.6 * -1);
+            }
+        else
+            {
+                claw.setPower(0);
+            }
+
+
+
 
 //--------------------------------------------------------------------------------------------------
 

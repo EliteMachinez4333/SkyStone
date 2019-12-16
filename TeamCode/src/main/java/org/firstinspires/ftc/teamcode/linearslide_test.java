@@ -7,13 +7,12 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 public class linearslide_test extends OpMode
 {
 
-    private static DcMotor linearSlide1, linearSlide2;
+    private static DcMotor linearSlide;
 
     @Override
     public void init()
     {
-        linearSlide1 = hardwareMap.dcMotor.get(UniversalConstants.linearSlide1) ;
-        linearSlide2 = hardwareMap.dcMotor.get(UniversalConstants.linearSlide2) ;
+        linearSlide = hardwareMap.dcMotor.get(UniversalConstants.linearSlide) ;
 
         double volts = hardwareMap.voltageSensor.get("Expansion Hub 2").getVoltage();
     }
@@ -25,25 +24,21 @@ public class linearslide_test extends OpMode
     {
         if (gamepad1.dpad_up)
         {
-            linearSlide1.setPower(-1);
-            linearSlide2.setPower(1);
+            linearSlide.setPower(-1);
         }
             else
                 {
-                    linearSlide1.setPower(0);
-                    linearSlide2.setPower(0);
+                    linearSlide.setPower(0);
                 }
 
 
         if (gamepad1.dpad_down)
         {
-            linearSlide1.setPower(-1);
-            linearSlide2.setPower(1);
+            linearSlide.setPower(0.5);
         }
         else
                 {
-                    linearSlide1.setPower(0);
-                    linearSlide2.setPower(0);
+                    linearSlide.setPower(0);
                 }
 
 

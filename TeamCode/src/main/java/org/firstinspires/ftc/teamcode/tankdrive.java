@@ -17,7 +17,7 @@ public class tankdrive extends OpMode
     private static final double ACCEPTINPUTTHRESHOLD = .15;
     private static final double SCALEDPOWER = 1; //Emphasis on current controller reading (vs current motor power) on the drive train
 
-    private static DcMotor l1, l2, r1, r2, i1, i2;
+    private static DcMotor l1, l2, r1, r2;
 
 //--------------------------------------------------------------------------------------------------
 
@@ -29,8 +29,6 @@ public class tankdrive extends OpMode
         l2 = hardwareMap.dcMotor.get("l2");
         r1 = hardwareMap.dcMotor.get("r1");
         r2 = hardwareMap.dcMotor.get("r2");
-        i1 = hardwareMap.dcMotor.get("i1");
-        i2 = hardwareMap.dcMotor.get("i2");
 
         //reverse all but rightFrontWheel, because of the way that the REV motors are oriented
         l1.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -54,30 +52,6 @@ public class tankdrive extends OpMode
         r1.setPower(gamepad1.left_stick_y);
         r2.setPower(gamepad1.left_stick_y);
 
-//--------------------------------------------------------------------------------------------------
-        //intake motor control
-
-        if (gamepad1.a)
-        {
-            i1.setPower(-1);
-            i2.setPower(1);
-        }
-        else
-        {
-            i1.setPower(0);
-            i2.setPower(0);
-        }
-
-        if (gamepad1.y)
-        {
-            i1.setPower(1);
-            i2.setPower(-1);
-        }
-        else
-        {
-            i1.setPower(0);
-            i2.setPower(0);
-        }
 
 //--------------------------------------------------------------------------------------------------
 
