@@ -17,7 +17,7 @@ public class main_teleop extends OpMode
     private static final double ACCEPTINPUTTHRESHOLD = 0.1;
     private static final double SCALEDPOWER = 0.5; //Emphasis on current controller reading (vs current motor power) on the drive train
 
-    private static DcMotor l1, l2, r1, r2, linearSlide, claw;
+    private static DcMotor l1, l2, r1, r2, linearSlide;
     //  private static Servo r, c;
 
 //--------------------------------------------------------------------------------------------------
@@ -33,7 +33,7 @@ public class main_teleop extends OpMode
 
         linearSlide   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide);
 
-        claw = hardwareMap.dcMotor.get(UniversalConstants.claw);
+       // claw = hardwareMap.dcMotor.get(UniversalConstants.claw);
 
         l1.setDirection(DcMotorSimple.Direction.REVERSE);
         l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
@@ -75,7 +75,7 @@ public class main_teleop extends OpMode
             }
 
 
-
+/*
         //claw control
         if (gamepad2.a)
             {
@@ -94,7 +94,7 @@ public class main_teleop extends OpMode
             {
                 claw.setPower(0);
             }
-
+*/
 
 
 
