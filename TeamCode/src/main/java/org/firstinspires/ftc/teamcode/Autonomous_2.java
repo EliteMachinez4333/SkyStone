@@ -8,13 +8,11 @@ import com.qualcomm.robotcore.hardware.DcMotor        ;
 import com.qualcomm.robotcore.hardware.DcMotorSimple  ;
 import com.qualcomm.robotcore.hardware.Servo          ;
 
-@Autonomous(name="encoder_test", group="Autonomous")
-public class encoder_test extends LinearOpMode
+@Autonomous(name="Autonomous 2", group="Autonomous")
+public class Autonomous_2 extends LinearOpMode
 {
     private static DcMotor l1, l2, r1, r2;
 
-
-//----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     @Override
     public void runOpMode() throws InterruptedException
     {
@@ -23,22 +21,17 @@ public class encoder_test extends LinearOpMode
         r1 = hardwareMap.dcMotor.get("r1");
         r2 = hardwareMap.dcMotor.get("r2");
 
-
-
         // reset encoder count kept by left motor.
         l1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         l2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         r1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         r2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-
-
         // reverse opposite facing motors
         // l1.setDirection(DcMotorSimple.Direction.REVERSE);
         // l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
         // r1.setDirection(DcMotorSimple.Direction.REVERSE);
         // r2.setDirection(DcMotorSimple.Direction.REVERSE);
-
 
         telemetry.addData("Mode", "waiting");
         telemetry.update();
@@ -51,28 +44,17 @@ public class encoder_test extends LinearOpMode
         telemetry.update();
 
 
-
-        forward(200);
-        strafe_right(200);
-        backward(200);
-        strafe_left(200);
+        forward(500);
 
 
 
-        /*
-         while (opModeIsActive() && l1.getCurrentPosition() + l2.getCurrentPosition() + r1.getCurrentPosition() + r2.getCurrentPosition() > 0)
-        {
-        telemetry.addData("encoder-back", l1.getCurrentPosition() + l2.getCurrentPosition() + r1.getCurrentPosition() + r2.getCurrentPosition());
-        telemetry.update();
-        idle();
-        }
-        */
     }
 
 //--------------------------------------------------------------------------------------------------
 
     //methods
 
+    //forward method
     public void forward (int ticks)
     {
         l1.setTargetPosition(ticks);
@@ -80,17 +62,17 @@ public class encoder_test extends LinearOpMode
         r1.setTargetPosition(ticks);
         r2.setTargetPosition(ticks);
 
-        l1.setPower(-1);
-        l2.setPower(-1);
-        r1.setPower(-1);
-        r2.setPower(-1);
+        l1.setPower(-0.5);
+        l2.setPower(-0.5);
+        r1.setPower(-0.5);
+        r2.setPower(-0.5);
 
         l1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         l2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        sleep(3000);
+        sleep(5000);
 
         l1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         l2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -99,6 +81,7 @@ public class encoder_test extends LinearOpMode
 
     }
 
+    //backward method
     public void backward (int ticks)
     {
         l1.setTargetPosition(ticks);
@@ -106,17 +89,17 @@ public class encoder_test extends LinearOpMode
         r1.setTargetPosition(ticks);
         r2.setTargetPosition(ticks);
 
-        l1.setPower(1);
-        l2.setPower(1);
-        r1.setPower(1);
-        r2.setPower(1);
+        l1.setPower(0.5);
+        l2.setPower(0.5);
+        r1.setPower(0.5);
+        r2.setPower(0.5);
 
         l1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         l2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        sleep(3000);
+        sleep(5000);
 
         l1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         l2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -124,6 +107,7 @@ public class encoder_test extends LinearOpMode
         r2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
+    //strafe left method
     public void strafe_left (int ticks)
     {
         l1.setTargetPosition(ticks);
@@ -131,17 +115,17 @@ public class encoder_test extends LinearOpMode
         r1.setTargetPosition(ticks);
         r2.setTargetPosition(ticks);
 
-        l1.setPower(1);
-        l2.setPower(-1);
-        r1.setPower(-1);
-        r2.setPower(1);
+        l1.setPower(0.5);
+        l2.setPower(-0.5);
+        r1.setPower(-0.5);
+        r2.setPower(0.5);
 
         l1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         l2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        sleep(3000);
+        sleep(5000);
 
         l1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         l2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -149,6 +133,7 @@ public class encoder_test extends LinearOpMode
         r2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
+    //strafe right method
     public void strafe_right (int ticks)
     {
         l1.setTargetPosition(ticks);
@@ -156,17 +141,17 @@ public class encoder_test extends LinearOpMode
         r1.setTargetPosition(ticks);
         r2.setTargetPosition(ticks);
 
-        l1.setPower(-1);
-        l2.setPower(1);
-        r1.setPower(1);
-        r2.setPower(-1);
+        l1.setPower(-0.5);
+        l2.setPower(0.5);
+        r1.setPower(0.5);
+        r2.setPower(-0.5);
 
         l1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         l2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        sleep(3000);
+        sleep(5000);
 
         l1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         l2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

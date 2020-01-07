@@ -1,25 +1,18 @@
 package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode ;
 import com.qualcomm.robotcore.hardware.DcMotor        ;
-import com.qualcomm.robotcore.hardware.DcMotorSimple  ;
-import com.qualcomm.robotcore.hardware.Servo          ;
-import java.util.Arrays;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import java.util.Arrays;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-@TeleOp(name="servo_test", group="TeleOp")
-public class servo_test extends OpMode
+@TeleOp(name="Motor Test", group="TeleOp")
+public class Motor_Test extends OpMode
 {
 
-    private static Servo testServo;
+    private static DcMotor t;
 
     @Override
     public void init()
     {
-        testServo = hardwareMap.servo.get(UniversalConstants.testServo) ;
-
-
+        t = hardwareMap.dcMotor.get(UniversalConstants.T) ;
 
         double volts = hardwareMap.voltageSensor.get("Expansion Hub 2").getVoltage();
     }
@@ -30,7 +23,7 @@ public class servo_test extends OpMode
     public void loop()
     {
 
-        testServo.setPosition(0);
+            t.setPower(1);
 
     }
 

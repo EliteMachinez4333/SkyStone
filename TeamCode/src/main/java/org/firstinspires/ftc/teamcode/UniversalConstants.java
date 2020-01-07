@@ -9,6 +9,10 @@ public class UniversalConstants
 
     static final String linearSlide = "linearSlide";
 
+    static final String linearSlide1 = "linearSlide1";
+    static final String linearSlide2 = "linearSlide2";
+
+
     static final String claw    = "claw";
 
     static final String T       = "t";

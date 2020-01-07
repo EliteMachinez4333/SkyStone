@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import java.util.Arrays;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="tankdrive", group="TeleOp")
-public class tankdrive extends OpMode
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="TankDrive Test", group="TeleOp")
+public class TankDrive_Test extends OpMode
 {
 
     private static final double TRIGGERTHRESHOLD = .2     ;

@@ -3,16 +3,16 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor        ;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
-@TeleOp(name="motor_test", group="TeleOp")
-public class motor_test extends OpMode
+@TeleOp(name="LinearSlide_1_motor", group="TeleOp")
+public class LinearSlide_with_1_Motor extends OpMode
 {
 
-    private static DcMotor t;
+    private static DcMotor linearSlide;
 
     @Override
     public void init()
     {
-        t = hardwareMap.dcMotor.get(UniversalConstants.T) ;
+        linearSlide = hardwareMap.dcMotor.get(UniversalConstants.linearSlide) ;
 
         double volts = hardwareMap.voltageSensor.get("Expansion Hub 2").getVoltage();
     }
@@ -22,8 +22,25 @@ public class motor_test extends OpMode
 
     public void loop()
     {
+        if (gamepad1.dpad_up)
+        {
+            linearSlide.setPower(-1);
+        }
+            else
+                {
+                    linearSlide.setPower(0);
+                }
 
-            t.setPower(1);
+
+        if (gamepad1.dpad_down)
+        {
+            linearSlide.setPower(0.5);
+        }
+        else
+                {
+                    linearSlide.setPower(0);
+                }
+
 
     }
 
