@@ -12,6 +12,17 @@ public class UniversalConstants
     static final String linearSlide1 = "linearSlide1";
     static final String linearSlide2 = "linearSlide2";
 
+    static final String gripper = "gripper";
+
+    static final String rightGripper = "rightGripper";
+    static final String centerGripper = "centerGripper";
+    static final String leftGripper = "leftGripper";
+
+
+
+
+
+    static final String hook = "hook";
 
     static final String claw    = "claw";
 

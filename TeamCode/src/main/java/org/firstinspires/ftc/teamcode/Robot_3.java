@@ -18,7 +18,7 @@ public class Robot_3 extends OpMode
     private static final double SCALEDPOWER = 0.5; //Emphasis on current controller reading (vs current motor power) on the drive train
 
     private static DcMotor l1, l2, r1, r2, linearSlide1, linearSlide2;
-    //  private static Servo r, c;
+    private static Servo  gripper, hook;
 
 //--------------------------------------------------------------------------------------------------
 
@@ -33,6 +33,10 @@ public class Robot_3 extends OpMode
 
         linearSlide1   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide1);
         linearSlide2   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide2);
+        hook   = hardwareMap.servo.get(UniversalConstants.hook);
+        gripper   = hardwareMap.servo.get(UniversalConstants.gripper);
+
+
 
 
         // claw = hardwareMap.dcMotor.get(UniversalConstants.claw);
@@ -54,56 +58,47 @@ public class Robot_3 extends OpMode
 //--------------------------------------------------------------------------------------------------
 
         //linear slide control
+        linearSlide1.setPower(gamepad2.right_stick_y);
+        linearSlide2.setPower(-gamepad2.left_stick_y);
 
-        if (gamepad1.dpad_up)
+
+        //hook for dragging platform
+        if (gamepad1.y)
         {
-            linearSlide1.setPower(-1);
-            linearSlide2.setPower(1);
+            hook.setPosition(1);
         }
         else
         {
-            linearSlide1.setPower(0);
-            linearSlide2.setPower(0);
+            hook.setPosition(0);
         }
 
-
-
-        if (gamepad1.dpad_down)
+        if (gamepad1.a)
         {
-            linearSlide1.setPower(0.5);
-            linearSlide2.setPower(-0.5);
-
+            hook.setPosition(-1);
         }
         else
         {
-            linearSlide1.setPower(0);
-            linearSlide2.setPower(0);
+            hook.setPosition(0);
         }
 
-
-/*
-        //claw control
-        if (gamepad2.a)
-            {
-                claw.setPower(1);
-            }
+        //gripper
+        if (gamepad2.x)
+        {
+            gripper.setPosition(1);
+        }
         else
-            {
-                claw.setPower(0);
-            }
+        {
+            gripper.setPosition(0);
+        }
 
-        if (gamepad2.y)
-            {
-                claw.setPower(0.6 * -1);
-            }
+        if (gamepad2.b)
+        {
+            gripper.setPosition(-1);
+        }
         else
-            {
-                claw.setPower(0);
-            }
-*/
-
-
-
+        {
+            gripper.setPosition(0);
+        }
 //--------------------------------------------------------------------------------------------------
 
         //mecanum drivetrain control

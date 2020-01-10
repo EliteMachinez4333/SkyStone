@@ -18,7 +18,6 @@ public class Robot_4 extends OpMode
     private static final double SCALEDPOWER = 0.5; //Emphasis on current controller reading (vs current motor power) on the drive train
 
     private static DcMotor l1, l2, r1, r2, linearSlide1, linearSlide2;
-    //  private static Servo r, c;
 
 //--------------------------------------------------------------------------------------------------
 
@@ -34,8 +33,6 @@ public class Robot_4 extends OpMode
         linearSlide1   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide1);
         linearSlide2   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide2);
 
-
-        // claw = hardwareMap.dcMotor.get(UniversalConstants.claw);
 
         l1.setDirection(DcMotorSimple.Direction.REVERSE);
         l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
@@ -54,53 +51,8 @@ public class Robot_4 extends OpMode
 //--------------------------------------------------------------------------------------------------
 
         //linear slide control
-
-        if (gamepad1.dpad_up)
-        {
-            linearSlide1.setPower(-1);
-            linearSlide2.setPower(-1);
-        }
-        else
-        {
-            linearSlide1.setPower(0);
-            linearSlide2.setPower(0);
-        }
-
-
-
-        if (gamepad1.dpad_down)
-        {
-            linearSlide1.setPower(0.5);
-            linearSlide2.setPower(0.5);
-
-        }
-        else
-        {
-            linearSlide1.setPower(0);
-            linearSlide2.setPower(0);
-        }
-
-
-/*
-        //claw control
-        if (gamepad2.a)
-            {
-                claw.setPower(1);
-            }
-        else
-            {
-                claw.setPower(0);
-            }
-
-        if (gamepad2.y)
-            {
-                claw.setPower(0.6 * -1);
-            }
-        else
-            {
-                claw.setPower(0);
-            }
-*/
+        linearSlide1.setPower(gamepad2.right_stick_y);
+        linearSlide2.setPower(-gamepad2.left_stick_y);
 
 
 

@@ -18,7 +18,6 @@ public class Robot_1 extends OpMode
     private static final double SCALEDPOWER = 0.5; //Emphasis on current controller reading (vs current motor power) on the drive train
 
     private static DcMotor l1, l2, r1, r2, linearSlide1, linearSlide2;
-    //  private static Servo r, c;
 
 //--------------------------------------------------------------------------------------------------
 
@@ -53,7 +52,7 @@ public class Robot_1 extends OpMode
     {
 //--------------------------------------------------------------------------------------------------
 
-        //linear slide control
+        //linear slide control using dpad
 
         if (gamepad1.dpad_up)
         {
@@ -67,7 +66,6 @@ public class Robot_1 extends OpMode
         }
 
 
-
         if (gamepad1.dpad_down)
         {
             linearSlide1.setPower(-0.5);
@@ -79,28 +77,6 @@ public class Robot_1 extends OpMode
             linearSlide1.setPower(0);
             linearSlide2.setPower(0);
         }
-
-
-/*
-        //claw control
-        if (gamepad2.a)
-            {
-                claw.setPower(1);
-            }
-        else
-            {
-                claw.setPower(0);
-            }
-
-        if (gamepad2.y)
-            {
-                claw.setPower(0.6 * -1);
-            }
-        else
-            {
-                claw.setPower(0);
-            }
-*/
 
 
 

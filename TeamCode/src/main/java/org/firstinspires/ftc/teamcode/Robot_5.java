@@ -18,7 +18,7 @@ public class Robot_5 extends OpMode
     private static final double SCALEDPOWER = 0.5; //Emphasis on current controller reading (vs current motor power) on the drive train
 
     private static DcMotor l1, l2, r1, r2, linearSlide1, linearSlide2;
-    //  private static Servo r, c;
+    private static Servo  hook, rightGripper, centerGripper, leftGripper;
 
 //--------------------------------------------------------------------------------------------------
 
@@ -34,8 +34,13 @@ public class Robot_5 extends OpMode
         linearSlide1   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide1);
         linearSlide2   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide2);
 
+        hook   = hardwareMap.servo.get(UniversalConstants.hook);
 
-        // claw = hardwareMap.dcMotor.get(UniversalConstants.claw);
+        leftGripper   = hardwareMap.servo.get(UniversalConstants.leftGripper);
+        centerGripper   = hardwareMap.servo.get(UniversalConstants.centerGripper);
+        rightGripper   = hardwareMap.servo.get(UniversalConstants.rightGripper);
+
+
 
         l1.setDirection(DcMotorSimple.Direction.REVERSE);
         l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
@@ -54,53 +59,48 @@ public class Robot_5 extends OpMode
 //--------------------------------------------------------------------------------------------------
 
         //linear slide control
+        linearSlide1.setPower(gamepad2.right_stick_y);
+        linearSlide2.setPower(-gamepad2.left_stick_y);
 
+
+        //hook for dragging platform
         if (gamepad1.dpad_up)
-        {
-            linearSlide1.setPower(-1);
-            linearSlide2.setPower(1);
-        }
-        else
-        {
-            linearSlide1.setPower(0);
-            linearSlide2.setPower(0);
-        }
-
+            {
+                hook.setPosition(1);
+            }
 
 
         if (gamepad1.dpad_down)
-        {
-            linearSlide1.setPower(0.5);
-            linearSlide2.setPower(-0.5);
-
-        }
-        else
-        {
-            linearSlide1.setPower(0);
-            linearSlide2.setPower(0);
-        }
-
-
-/*
-        //claw control
-        if (gamepad2.a)
             {
-                claw.setPower(1);
-            }
-        else
-            {
-                claw.setPower(0);
+                hook.setPosition(0);
             }
 
+
+        //center gripper y & a
         if (gamepad2.y)
             {
-                claw.setPower(0.6 * -1);
+                centerGripper.setPosition(1);
             }
-        else
+
+        if (gamepad2.a)
             {
-                claw.setPower(0);
+                centerGripper.setPosition(-1);
             }
-*/
+
+
+        //right and left gripper x & b
+            //right gripper port 2
+        if (gamepad2.x)
+            {
+                leftGripper.setPosition(-1);
+                rightGripper.setPosition(1);
+            }
+
+        if (gamepad2.b)
+            {
+                leftGripper.setPosition(1);
+                rightGripper.setPosition(-1);
+            }
 
 
 
@@ -130,12 +130,12 @@ public class Robot_5 extends OpMode
         double[] wheelPowers = {rightFrontVal, leftFrontVal, leftBackVal, rightBackVal};
         Arrays.sort(wheelPowers);
         if (wheelPowers[3] > 1)
-        {
-            leftFrontVal  /= wheelPowers[3];
-            rightFrontVal /= wheelPowers[3];
-            leftBackVal   /= wheelPowers[3];
-            rightBackVal  /= wheelPowers[3];
-        }
+            {
+                leftFrontVal  /= wheelPowers[3];
+                rightFrontVal /= wheelPowers[3];
+                leftBackVal   /= wheelPowers[3];
+                rightBackVal  /= wheelPowers[3];
+            }
 
         double scaledPower = SCALEDPOWER;
 
