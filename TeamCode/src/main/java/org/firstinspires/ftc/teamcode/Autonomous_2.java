@@ -12,7 +12,6 @@ import com.qualcomm.robotcore.hardware.Servo          ;
 public class Autonomous_2 extends LinearOpMode
 {
     private static DcMotor l1, l2, r1, r2;
-    private static Servo hook;
 
     @Override
     public void runOpMode() throws InterruptedException
@@ -21,8 +20,6 @@ public class Autonomous_2 extends LinearOpMode
         l2 = hardwareMap.dcMotor.get("l2");
         r1 = hardwareMap.dcMotor.get("r1");
         r2 = hardwareMap.dcMotor.get("r2");
-
-        hook = hardwareMap.servo.get("hook");
 
 
         // reset encoder count kept by left motor.
@@ -47,12 +44,12 @@ public class Autonomous_2 extends LinearOpMode
         telemetry.addData("Mode", "running");
         telemetry.update();
 
+        //500 ticks = 1 foot
 
-        hook.setPosition(1);
-        sleep(3000);
-        hook.setPosition(-1);
-        sleep(3000);
-
+        strafe_right(600);
+        sleep(1000);
+        backward(700);
+        sleep(2000);
 
 
     }

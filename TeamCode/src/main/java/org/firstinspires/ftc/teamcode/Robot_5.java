@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple  ;
 import com.qualcomm.robotcore.hardware.Servo          ;
 import java.util.Arrays;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 import java.util.Arrays;
 
 
@@ -15,10 +17,12 @@ public class Robot_5 extends OpMode
 
     private static final double TRIGGERTHRESHOLD = 0.2     ;
     private static final double ACCEPTINPUTTHRESHOLD = 0.1;
-    private static final double SCALEDPOWER = 0.5; //Emphasis on current controller reading (vs current motor power) on the drive train
+    private static final double SCALEDPOWER = 0.4; //Emphasis on current controller reading (vs current motor power) on the drive train
 
     private static DcMotor l1, l2, r1, r2, linearSlide1, linearSlide2;
     private static Servo  hook, rightGripper, centerGripper, leftGripper;
+
+    private ElapsedTime runtime = new ElapsedTime();
 
 //--------------------------------------------------------------------------------------------------
 
@@ -76,16 +80,14 @@ public class Robot_5 extends OpMode
             }
 
 
-        //center gripper y & a
-        if (gamepad2.y)
-            {
-                centerGripper.setPosition(1);
-            }
+        //center gripper using trigger
+        centerGripper.setPosition(gamepad2.right_trigger);
+        centerGripper.setPosition(-gamepad2.left_trigger);
 
-        if (gamepad2.a)
-            {
-                centerGripper.setPosition(-1);
-            }
+
+
+
+
 
 
         //right and left gripper x & b
@@ -142,7 +144,7 @@ public class Robot_5 extends OpMode
 
         leftFront.setPower(leftFrontVal*scaledPower+leftFront.getPower()*(1-scaledPower))    ;
         rightFront.setPower(rightFrontVal*scaledPower+rightFront.getPower()*(1-scaledPower)) ;
-        leftBack.setPower(leftBackVal*scaledPower+leftBack.getPower()*(1-scaledPower))       ;
+        leftBack.setPower(leftBackVal*scaledPower+leftBack.getPower()*(1-scaledPower))     ;
         rightBack.setPower(rightBackVal*scaledPower+rightBack.getPower()*(1-scaledPower))    ;
 
     }

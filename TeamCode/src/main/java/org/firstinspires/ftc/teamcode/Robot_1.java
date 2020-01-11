@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple  ;
 import com.qualcomm.robotcore.hardware.Servo          ;
 import java.util.Arrays;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 import java.util.Arrays;
 
 
@@ -15,9 +17,12 @@ public class Robot_1 extends OpMode
 
     private static final double TRIGGERTHRESHOLD = 0.2     ;
     private static final double ACCEPTINPUTTHRESHOLD = 0.1;
-    private static final double SCALEDPOWER = 0.5; //Emphasis on current controller reading (vs current motor power) on the drive train
+    private static final double SCALEDPOWER = 0.4; //Emphasis on current controller reading (vs current motor power) on the drive train
 
     private static DcMotor l1, l2, r1, r2, linearSlide1, linearSlide2;
+    private static Servo  hook, rightGripper, centerGripper, leftGripper;
+
+    private ElapsedTime runtime = new ElapsedTime();
 
 //--------------------------------------------------------------------------------------------------
 
@@ -33,8 +38,13 @@ public class Robot_1 extends OpMode
         linearSlide1   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide1);
         linearSlide2   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide2);
 
+        hook   = hardwareMap.servo.get(UniversalConstants.hook);
 
-        // claw = hardwareMap.dcMotor.get(UniversalConstants.claw);
+        leftGripper   = hardwareMap.servo.get(UniversalConstants.leftGripper);
+        centerGripper   = hardwareMap.servo.get(UniversalConstants.centerGripper);
+        rightGripper   = hardwareMap.servo.get(UniversalConstants.rightGripper);
+
+
 
         l1.setDirection(DcMotorSimple.Direction.REVERSE);
         l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
@@ -52,30 +62,46 @@ public class Robot_1 extends OpMode
     {
 //--------------------------------------------------------------------------------------------------
 
-        //linear slide control using dpad
+        //linear slide control
+        linearSlide1.setPower(gamepad2.right_stick_y);
+        linearSlide2.setPower(-gamepad2.left_stick_y);
 
+
+        //hook for dragging platform
         if (gamepad1.dpad_up)
         {
-            linearSlide1.setPower(1);
-            linearSlide2.setPower(1);
-        }
-        else
-        {
-            linearSlide1.setPower(0);
-            linearSlide2.setPower(0);
+            hook.setPosition(1);
         }
 
 
         if (gamepad1.dpad_down)
         {
-            linearSlide1.setPower(-0.5);
-            linearSlide2.setPower(-0.5);
-
+            hook.setPosition(0);
         }
-        else
+
+
+        //center gripper using trigger
+        centerGripper.setPosition(gamepad2.right_trigger);
+        centerGripper.setPosition(-gamepad2.left_trigger);
+
+
+
+
+
+
+
+        //right and left gripper x & b
+        //right gripper port 2
+        if (gamepad2.x)
         {
-            linearSlide1.setPower(0);
-            linearSlide2.setPower(0);
+            leftGripper.setPosition(-1);
+            rightGripper.setPosition(1);
+        }
+
+        if (gamepad2.b)
+        {
+            leftGripper.setPosition(1);
+            rightGripper.setPosition(-1);
         }
 
 
@@ -118,7 +144,7 @@ public class Robot_1 extends OpMode
 
         leftFront.setPower(leftFrontVal*scaledPower+leftFront.getPower()*(1-scaledPower))    ;
         rightFront.setPower(rightFrontVal*scaledPower+rightFront.getPower()*(1-scaledPower)) ;
-        leftBack.setPower(leftBackVal*scaledPower+leftBack.getPower()*(1-scaledPower))       ;
+        leftBack.setPower(leftBackVal*scaledPower+leftBack.getPower()*(1-scaledPower))     ;
         rightBack.setPower(rightBackVal*scaledPower+rightBack.getPower()*(1-scaledPower))    ;
 
     }
