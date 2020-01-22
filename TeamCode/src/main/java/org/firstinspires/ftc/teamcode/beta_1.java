@@ -11,8 +11,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import java.util.Arrays;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Robot 5", group="TeleOp")
-public class Robot_5 extends OpMode
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Robot 1", group="TeleOp")
+public class Robot_1 extends OpMode
 {
 
     private static final double TRIGGERTHRESHOLD = 0.2     ;
@@ -69,15 +69,15 @@ public class Robot_5 extends OpMode
 
         //hook for dragging platform
         if (gamepad1.dpad_up)
-            {
-                hook.setPosition(1);
-            }
+        {
+            hook.setPosition(1);
+        }
 
 
         if (gamepad1.dpad_down)
-            {
-                hook.setPosition(0);
-            }
+        {
+            hook.setPosition(0);
+        }
 
 
         //center gripper using trigger
@@ -91,18 +91,18 @@ public class Robot_5 extends OpMode
 
 
         //right and left gripper x & b
-            //right gripper port 2
+        //right gripper port 2
         if (gamepad2.x)
-            {
-                leftGripper.setPosition(-1);
-                rightGripper.setPosition(1);
-            }
+        {
+            leftGripper.setPosition(-1);
+            rightGripper.setPosition(1);
+        }
 
         if (gamepad2.b)
-            {
-                leftGripper.setPosition(1);
-                rightGripper.setPosition(-1);
-            }
+        {
+            leftGripper.setPosition(1);
+            rightGripper.setPosition(-1);
+        }
 
 
 
@@ -112,7 +112,7 @@ public class Robot_5 extends OpMode
 
         //moves mecanum wheel motors based on absolute values from the sticks that take into account rotation
         double inputY = Math.abs(gamepad1.left_stick_y) > ACCEPTINPUTTHRESHOLD ? gamepad1.left_stick_y : 0 ;
-        double inputX = Math.abs(gamepad1.left_stick_x) > ACCEPTINPUTTHRESHOLD ? -gamepad1.left_stick_x : 0;
+        double inputX = Math.abs(-gamepad1.left_stick_x) > ACCEPTINPUTTHRESHOLD ? -gamepad1.left_stick_x : 0;
         double inputC = Math.abs(gamepad1.right_stick_x)> ACCEPTINPUTTHRESHOLD ? -gamepad1.right_stick_x: 0;
 
         arcadeMecanum(inputY, inputX, inputC, l1, r1, l2, r2);
@@ -132,12 +132,12 @@ public class Robot_5 extends OpMode
         double[] wheelPowers = {rightFrontVal, leftFrontVal, leftBackVal, rightBackVal};
         Arrays.sort(wheelPowers);
         if (wheelPowers[3] > 1)
-            {
-                leftFrontVal  /= wheelPowers[3];
-                rightFrontVal /= wheelPowers[3];
-                leftBackVal   /= wheelPowers[3];
-                rightBackVal  /= wheelPowers[3];
-            }
+        {
+            leftFrontVal  /= wheelPowers[3];
+            rightFrontVal /= wheelPowers[3];
+            leftBackVal   /= wheelPowers[3];
+            rightBackVal  /= wheelPowers[3];
+        }
 
         double scaledPower = SCALEDPOWER;
 

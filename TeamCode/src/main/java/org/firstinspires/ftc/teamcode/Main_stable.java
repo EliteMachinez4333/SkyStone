@@ -11,16 +11,16 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import java.util.Arrays;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Robot 3", group="TeleOp")
-public class Robot_3 extends OpMode
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Main Stable", group="TeleOp")
+public class Main_stable extends OpMode
 {
 
     private static final double TRIGGERTHRESHOLD = 0.2     ;
     private static final double ACCEPTINPUTTHRESHOLD = 0.1;
-    private static final double SCALEDPOWER = 0.5; //Emphasis on current controller reading (vs current motor power) on the drive train
+    private static final double SCALEDPOWER = 1; //Emphasis on current controller reading (vs current motor power) on the drive train
 
     private static DcMotor l1, l2, r1, r2, linearSlide1, linearSlide2;
-    private static Servo  hook, rightGripper, centerGripper, leftGripper;
+    private static Servo  centerGripper, rightGripper, leftGripper;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -30,26 +30,27 @@ public class Robot_3 extends OpMode
     public void init()
     //this is where the lines for init-ing and reversing goes
     {
-      //  l1           = hardwareMap.dcMotor.get(UniversalConstants.l1) ;
-      //  l2           = hardwareMap.dcMotor.get(UniversalConstants.l2) ;
+        l1           = hardwareMap.dcMotor.get(UniversalConstants.l1) ;
+        l2           = hardwareMap.dcMotor.get(UniversalConstants.l2) ;
         r1           = hardwareMap.dcMotor.get(UniversalConstants.r1);
         r2           = hardwareMap.dcMotor.get(UniversalConstants.r2);
 
         linearSlide1   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide1);
         linearSlide2   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide2);
 
-        hook   = hardwareMap.servo.get(UniversalConstants.hook);
-
-        leftGripper   = hardwareMap.servo.get(UniversalConstants.leftGripper);
         centerGripper   = hardwareMap.servo.get(UniversalConstants.centerGripper);
         rightGripper   = hardwareMap.servo.get(UniversalConstants.rightGripper);
+        leftGripper   = hardwareMap.servo.get(UniversalConstants.leftGripper);
 
 
 
-        l1.setDirection(DcMotorSimple.Direction.REVERSE);
-        l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
-        r1.setDirection(DcMotorSimple.Direction.REVERSE);
-        r2.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
+
+        // l1.setDirection(DcMotorSimple.Direction.REVERSE);
+        // l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
+        // r1.setDirection(DcMotorSimple.Direction.REVERSE);
+        // r2.setDirection(DcMotorSimple.Direction.REVERSE);
 
         double volts = hardwareMap.voltageSensor.get("Expansion Hub 2").getVoltage();
     }
@@ -63,45 +64,44 @@ public class Robot_3 extends OpMode
 //--------------------------------------------------------------------------------------------------
 
         //linear slide control
-        linearSlide1.setPower(gamepad2.right_stick_y);
+        linearSlide1.setPower(-gamepad2.right_stick_y);
         linearSlide2.setPower(-gamepad2.left_stick_y);
 
+//right and center gripper must be reversed (to make all close in)
 
-        //hook for dragging platform
-        if (gamepad1.dpad_up)
-        {
-            hook.setPosition(1);
-        }
-
-
-        if (gamepad1.dpad_down)
-        {
-            hook.setPosition(0);
-        }
-
-
-        //center gripper using trigger
-        centerGripper.setPosition(gamepad2.right_trigger);
-        centerGripper.setPosition(-gamepad2.left_trigger);
-
-
-
-
-
-
-
-        //right and left gripper x & b
-        //right gripper port 2
-        if (gamepad2.x)
-        {
-            leftGripper.setPosition(-1);
-            rightGripper.setPosition(1);
-        }
+        //on +1 value, centerGripper goes up
+        //on 0.5 value, centerGripper goes down very slowly
+        //on 0 value, centerGripper goes down
+        //on -0.5 value, centerGripper goes down
+        //on -1 value, centerGripper goes down
 
         if (gamepad2.b)
         {
+            centerGripper.setPosition(1);
+        }
+        else if (gamepad2.a)
+        {
+            centerGripper.setPosition(-1);
+        }
+        else
+        {
+            centerGripper.setPosition(0.5);
+        }
+
+
+        //rightGripper cloess on 0
+        //leftGripper closes on 1
+
+
+        if (gamepad2.x)
+        {
+            rightGripper.setPosition(0);
             leftGripper.setPosition(1);
-            rightGripper.setPosition(-1);
+        }
+        else if (gamepad2.y)
+        {
+            rightGripper.setPosition(1);
+            leftGripper.setPosition(0);
         }
 
 
@@ -112,7 +112,7 @@ public class Robot_3 extends OpMode
 
         //moves mecanum wheel motors based on absolute values from the sticks that take into account rotation
         double inputY = Math.abs(gamepad1.left_stick_y) > ACCEPTINPUTTHRESHOLD ? gamepad1.left_stick_y : 0 ;
-        double inputX = Math.abs(gamepad1.left_stick_x) > ACCEPTINPUTTHRESHOLD ? -gamepad1.left_stick_x : 0;
+        double inputX = Math.abs(-gamepad1.left_stick_x) > ACCEPTINPUTTHRESHOLD ? -gamepad1.left_stick_x : 0;
         double inputC = Math.abs(gamepad1.right_stick_x)> ACCEPTINPUTTHRESHOLD ? -gamepad1.right_stick_x: 0;
 
         arcadeMecanum(inputY, inputX, inputC, l1, r1, l2, r2);

@@ -18,15 +18,13 @@ public class UniversalConstants
     static final String centerGripper = "centerGripper";
     static final String leftGripper = "leftGripper";
 
+    static final String hook1 = "hook1";
+    static final String hook2 = "hook2";
 
-
-
-
-    static final String hook = "hook";
 
     static final String claw    = "claw";
 
     static final String T       = "t";
-    static final String testServo = "testServo";
+    static final String servo = "servo";
 }
 

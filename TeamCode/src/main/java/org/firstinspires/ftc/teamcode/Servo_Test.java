@@ -12,12 +12,12 @@ import java.util.Arrays;
 public class Servo_Test extends OpMode
 {
 
-    private static Servo testServo;
+    private static Servo servo;
 
     @Override
     public void init()
     {
-        testServo = hardwareMap.servo.get(UniversalConstants.testServo) ;
+        servo = hardwareMap.servo.get(UniversalConstants.servo) ;
 
 
 
@@ -30,7 +30,7 @@ public class Servo_Test extends OpMode
     public void loop()
     {
 
-        testServo.setPosition(0);
+        servo.setPosition(1);
 
     }
 

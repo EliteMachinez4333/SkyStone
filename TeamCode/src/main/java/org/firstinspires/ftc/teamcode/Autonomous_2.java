@@ -46,9 +46,7 @@ public class Autonomous_2 extends LinearOpMode
 
         //500 ticks = 1 foot
 
-        strafe_right(600);
-        sleep(1000);
-        backward(700);
+        backward(150);
         sleep(2000);
 
 
@@ -93,17 +91,17 @@ public class Autonomous_2 extends LinearOpMode
         r1.setTargetPosition(ticks);
         r2.setTargetPosition(ticks);
 
-        l1.setPower(0.5);
-        l2.setPower(0.5);
-        r1.setPower(0.5);
-        r2.setPower(0.5);
+        l1.setPower(0.4);
+        l2.setPower(0.4);
+        r1.setPower(0.4);
+        r2.setPower(0.4);
 
         l1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         l2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        sleep(5000);
+        sleep(3000);
 
         l1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         l2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

@@ -46,8 +46,7 @@ public class Autonomous_1 extends LinearOpMode
 
         //500 ticks = 1 foot
 
-        backward(700);
-        sleep(2000);
+        backward(100);
 
 
     }
@@ -74,8 +73,6 @@ public class Autonomous_1 extends LinearOpMode
         r1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        sleep(5000);
-
         l1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         l2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         r1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -91,17 +88,16 @@ public class Autonomous_1 extends LinearOpMode
         r1.setTargetPosition(ticks);
         r2.setTargetPosition(ticks);
 
-        l1.setPower(0.5);
-        l2.setPower(0.5);
-        r1.setPower(0.5);
-        r2.setPower(0.5);
+        l1.setPower(0.4);
+        l2.setPower(0.4);
+        r1.setPower(0.4);
+        r2.setPower(0.4);
 
         l1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         l2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        sleep(5000);
 
         l1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         l2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -127,8 +123,6 @@ public class Autonomous_1 extends LinearOpMode
         r1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        sleep(5000);
-
         l1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         l2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         r1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -152,8 +146,6 @@ public class Autonomous_1 extends LinearOpMode
         l2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         r2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        sleep(5000);
 
         l1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         l2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

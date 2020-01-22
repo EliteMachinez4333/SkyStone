@@ -17,13 +17,16 @@ public class Robot_4 extends OpMode
 
     private static final double TRIGGERTHRESHOLD = 0.2     ;
     private static final double ACCEPTINPUTTHRESHOLD = 0.1;
-    private static final double SCALEDPOWER = 0.5; //Emphasis on current controller reading (vs current motor power) on the drive train
+    private static final double SCALEDPOWER = 0.4; //Emphasis on current controller reading (vs current motor power) on the drive train
 
     private static DcMotor l1, l2, r1, r2, linearSlide1, linearSlide2;
     private static Servo  hook, rightGripper, centerGripper, leftGripper;
 
     private ElapsedTime runtime = new ElapsedTime();
 
+
+    boolean gamepad2a;
+    boolean gamepad2b;
 //--------------------------------------------------------------------------------------------------
 
     @Override
@@ -32,8 +35,8 @@ public class Robot_4 extends OpMode
     {
         l1           = hardwareMap.dcMotor.get(UniversalConstants.l1) ;
         l2           = hardwareMap.dcMotor.get(UniversalConstants.l2) ;
-     //   r1           = hardwareMap.dcMotor.get(UniversalConstants.r1);
-     //   r2           = hardwareMap.dcMotor.get(UniversalConstants.r2);
+        r1           = hardwareMap.dcMotor.get(UniversalConstants.r1);
+        r2           = hardwareMap.dcMotor.get(UniversalConstants.r2);
 
         linearSlide1   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide1);
         linearSlide2   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide2);
@@ -81,11 +84,23 @@ public class Robot_4 extends OpMode
 
 
         //center gripper using trigger
-        centerGripper.setPosition(gamepad2.right_trigger);
-        centerGripper.setPosition(-gamepad2.left_trigger);
+        if (gamepad2a = true)
+            {
+                centerGripper.setPosition(1);
+            }
+                else
+                {
+                    centerGripper.setPosition(0);
+                }
 
-
-
+        if (gamepad2b = true)
+        {
+            centerGripper.setPosition(-1);
+        }
+            else
+            {
+                centerGripper.setPosition(0);
+            }
 
 
 
@@ -112,7 +127,7 @@ public class Robot_4 extends OpMode
 
         //moves mecanum wheel motors based on absolute values from the sticks that take into account rotation
         double inputY = Math.abs(gamepad1.left_stick_y) > ACCEPTINPUTTHRESHOLD ? gamepad1.left_stick_y : 0 ;
-        double inputX = Math.abs(gamepad1.left_stick_x) > ACCEPTINPUTTHRESHOLD ? -gamepad1.left_stick_x : 0;
+        double inputX = Math.abs(-gamepad1.left_stick_x) > ACCEPTINPUTTHRESHOLD ? -gamepad1.left_stick_x : 0;
         double inputC = Math.abs(gamepad1.right_stick_x)> ACCEPTINPUTTHRESHOLD ? -gamepad1.right_stick_x: 0;
 
         arcadeMecanum(inputY, inputX, inputC, l1, r1, l2, r2);
