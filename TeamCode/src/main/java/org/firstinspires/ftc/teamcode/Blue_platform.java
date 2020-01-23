@@ -1,4 +1,4 @@
 package org.firstinspires.ftc.teamcode;
 
-public class Autonomous_3 {
+public class Blue_platform {
 }

@@ -11,16 +11,16 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import java.util.Arrays;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Robot 5", group="TeleOp")
-public class Robot_5 extends OpMode
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Beta 5", group="TeleOp")
+public class beta_5 extends OpMode
 {
 
     private static final double TRIGGERTHRESHOLD = 0.2     ;
     private static final double ACCEPTINPUTTHRESHOLD = 0.1;
     private static final double SCALEDPOWER = 1; //Emphasis on current controller reading (vs current motor power) on the drive train
 
-    private static DcMotor l1, l2, r1, r2, linearSlide1, linearSlide2;
-    private static Servo  rightGripper,leftGripper;
+    private static DcMotor l1, l2, r1, r2, linearSlide;
+    private static Servo  centerGripper, rightGripper, leftGripper, hook1, hook2;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -35,19 +35,19 @@ public class Robot_5 extends OpMode
         r1           = hardwareMap.dcMotor.get(UniversalConstants.r1);
         r2           = hardwareMap.dcMotor.get(UniversalConstants.r2);
 
-        linearSlide1   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide1);
-        linearSlide2   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide2);
+        linearSlide   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide);
 
-
-        leftGripper   = hardwareMap.servo.get(UniversalConstants.leftGripper);
+        centerGripper   = hardwareMap.servo.get(UniversalConstants.centerGripper);
         rightGripper   = hardwareMap.servo.get(UniversalConstants.rightGripper);
+        leftGripper   = hardwareMap.servo.get(UniversalConstants.leftGripper);
 
+        hook1   = hardwareMap.servo.get(UniversalConstants.hook1);
+        hook2   = hardwareMap.servo.get(UniversalConstants.hook2);
 
-
-       // l1.setDirection(DcMotorSimple.Direction.REVERSE);
-       // l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
-       // r1.setDirection(DcMotorSimple.Direction.REVERSE);
-       // r2.setDirection(DcMotorSimple.Direction.REVERSE);
+        // l1.setDirection(DcMotorSimple.Direction.REVERSE);
+        // l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
+        // r1.setDirection(DcMotorSimple.Direction.REVERSE);
+        // r2.setDirection(DcMotorSimple.Direction.REVERSE);
 
         double volts = hardwareMap.voltageSensor.get("Expansion Hub 2").getVoltage();
     }
@@ -61,36 +61,73 @@ public class Robot_5 extends OpMode
 //--------------------------------------------------------------------------------------------------
 
         //linear slide control
-        linearSlide1.setPower(gamepad2.right_stick_y);
-        linearSlide2.setPower(-gamepad2.left_stick_y);
+
+        /*
+        if (gamepad2.left_stick_y > 0)
+        {
+            linearSlide.setPower(-0.7);
+        }
+        else if (gamepad2.left_stick_y < 0)
+        {
+            linearSlide.setPower(0.7);
+        }
+        else
+            {
+                linearSlide.setPower(0.15);
+            }
+        */
+
+        //on +1 value, centerGripper goes up
+        //on 0.5 value, centerGripper goes down very slowly
+        //on 0 value, centerGripper goes down
+        //on -0.5 value, centerGripper goes down
+        //on -1 value, centerGripper goes down
+
+        //center gripper control
+        if (gamepad2.y)
+        {
+            centerGripper.setPosition(1);
+        }
+        else if (gamepad2.a)
+        {
+            centerGripper.setPosition(-1);
+        }
+        else
+        {
+            centerGripper.setPosition(0.5);
+        }
 
 
+        //right and center gripper must be reversed (to make all close in)
 
+        //rightGripper closes on 0
+        //leftGripper closes on 1
 
-
-
-
-
-
-
-
-
-
-
-
-        //right and left gripper x & b
-            //right gripper port 2
+        //left and right gripper control
         if (gamepad2.x)
-            {
-                leftGripper.setPosition(-1);
-                rightGripper.setPosition(1);
-            }
+        {
+            rightGripper.setPosition(0);
+            leftGripper.setPosition(1);
+        }
+        else if (gamepad2.b)
+        {
+            rightGripper.setPosition(1);
+            leftGripper.setPosition(0);
+        }
 
-        if (gamepad2.b)
-            {
-                leftGripper.setPosition(1);
-                rightGripper.setPosition(-1);
-            }
+
+        //hook for base control
+        if (gamepad1.dpad_up)
+        {
+            hook1.setPosition(1);
+            hook2.setPosition(0);
+
+        }
+        else if (gamepad1.dpad_down)
+        {
+            hook1.setPosition(0);
+            hook2.setPosition(1);
+        }
 
 
 
@@ -120,12 +157,12 @@ public class Robot_5 extends OpMode
         double[] wheelPowers = {rightFrontVal, leftFrontVal, leftBackVal, rightBackVal};
         Arrays.sort(wheelPowers);
         if (wheelPowers[3] > 1)
-            {
-                leftFrontVal  /= wheelPowers[3];
-                rightFrontVal /= wheelPowers[3];
-                leftBackVal   /= wheelPowers[3];
-                rightBackVal  /= wheelPowers[3];
-            }
+        {
+            leftFrontVal  /= wheelPowers[3];
+            rightFrontVal /= wheelPowers[3];
+            leftBackVal   /= wheelPowers[3];
+            rightBackVal  /= wheelPowers[3];
+        }
 
         double scaledPower = SCALEDPOWER;
 

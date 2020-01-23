@@ -11,8 +11,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import java.util.Arrays;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Robot 2", group="TeleOp")
-public class Robot_2 extends OpMode
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Beta 2", group="TeleOp")
+public class beta_2 extends OpMode
 {
 
     private static final double TRIGGERTHRESHOLD = 0.2     ;
@@ -38,7 +38,7 @@ public class Robot_2 extends OpMode
         linearSlide1   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide1);
         linearSlide2   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide2);
 
-        hook   = hardwareMap.servo.get(UniversalConstants.hook);
+     //   hook   = hardwareMap.servo.get(UniversalConstants.hook);
 
         leftGripper   = hardwareMap.servo.get(UniversalConstants.leftGripper);
         centerGripper   = hardwareMap.servo.get(UniversalConstants.centerGripper);

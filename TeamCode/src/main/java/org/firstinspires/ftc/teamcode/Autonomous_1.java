@@ -11,26 +11,29 @@ import com.qualcomm.robotcore.hardware.Servo          ;
 @Autonomous(name="Autonomous 1", group="Autonomous")
 public class Autonomous_1 extends LinearOpMode
 {
-    private static DcMotor l1, l2, r1, r2;
+    private static DcMotor l1, l2, r1, r2, linearSlide;
+    private static Servo  rightGripper, leftGripper, centerGripper, hook1, hook2;
 
     @Override
     public void runOpMode() throws InterruptedException
     {
-        l1 = hardwareMap.dcMotor.get("l1");
-        l2 = hardwareMap.dcMotor.get("l2");
-        r1 = hardwareMap.dcMotor.get("r1");
-        r2 = hardwareMap.dcMotor.get("r2");
+        l1             = hardwareMap.dcMotor.get(UniversalConstants.l1) ;
+        l2             = hardwareMap.dcMotor.get(UniversalConstants.l2) ;
+        r1             = hardwareMap.dcMotor.get(UniversalConstants.r1);
+        r2             = hardwareMap.dcMotor.get(UniversalConstants.r2);
 
+        linearSlide    = hardwareMap.dcMotor.get(UniversalConstants.linearSlide);
 
-        // reset encoder count kept by left motor.
-        l1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        l2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        r1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        r2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftGripper    = hardwareMap.servo.get(UniversalConstants.leftGripper);
+        rightGripper   = hardwareMap.servo.get(UniversalConstants.rightGripper);
+        centerGripper  = hardwareMap.servo.get(UniversalConstants.rightGripper);
+
+        hook1          = hardwareMap.servo.get(UniversalConstants.hook1);
+        hook2          = hardwareMap.servo.get(UniversalConstants.hook2);
 
         // reverse opposite facing motors
         // l1.setDirection(DcMotorSimple.Direction.REVERSE);
-        // l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
+        // l2.setDirection(DcMotorSimple.Direction.REVERSE);
         // r1.setDirection(DcMotorSimple.Direction.REVERSE);
         // r2.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -44,11 +47,18 @@ public class Autonomous_1 extends LinearOpMode
         telemetry.addData("Mode", "running");
         telemetry.update();
 
-        //500 ticks = 1 foot
+        //start of movement
 
-        backward(100);
-
-
+        hookUp();
+        backward(1000);
+        strafe_right(1000);
+        backward(500);
+        hookDown();
+        strafe_right(300);
+        forward(2300);
+        hookUp();
+        strafe_left(3000);
+        backward(2000);
     }
 
 //--------------------------------------------------------------------------------------------------
@@ -56,102 +66,81 @@ public class Autonomous_1 extends LinearOpMode
     //methods
 
     //forward method
-    public void forward (int ticks)
+    public void forward (int ms)
     {
-        l1.setTargetPosition(ticks);
-        l2.setTargetPosition(ticks);
-        r1.setTargetPosition(ticks);
-        r2.setTargetPosition(ticks);
+        l1.setPower(-1);
+        l2.setPower(-1);
+        r1.setPower(-1);
+        r2.setPower(-1);
 
-        l1.setPower(-0.5);
-        l2.setPower(-0.5);
-        r1.setPower(-0.5);
-        r2.setPower(-0.5);
-
-        l1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        l2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        r1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        r2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        l1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        l2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        r1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        r2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
+        sleep(ms);
     }
 
     //backward method
-    public void backward (int ticks)
+    public void backward (int ms)
     {
-        l1.setTargetPosition(ticks);
-        l2.setTargetPosition(ticks);
-        r1.setTargetPosition(ticks);
-        r2.setTargetPosition(ticks);
+        l1.setPower(1);
+        l2.setPower(1);
+        r1.setPower(1);
+        r2.setPower(1);
 
-        l1.setPower(0.4);
-        l2.setPower(0.4);
-        r1.setPower(0.4);
-        r2.setPower(0.4);
-
-        l1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        l2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        r1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        r2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-
-        l1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        l2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        r1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        r2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        sleep(ms);
     }
 
     //strafe left method
-    public void strafe_left (int ticks)
+    public void strafe_left (int ms)
     {
-        l1.setTargetPosition(ticks);
-        l2.setTargetPosition(ticks);
-        r1.setTargetPosition(ticks);
-        r2.setTargetPosition(ticks);
+        l1.setPower(1);
+        l2.setPower(-1);
+        r1.setPower(-1);
+        r2.setPower(1);
 
-        l1.setPower(0.5);
-        l2.setPower(-0.5);
-        r1.setPower(-0.5);
-        r2.setPower(0.5);
-
-        l1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        l2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        r1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        r2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        l1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        l2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        r1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        r2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        sleep(ms);
     }
 
     //strafe right method
-    public void strafe_right (int ticks)
+    public void strafe_right (int ms)
     {
-        l1.setTargetPosition(ticks);
-        l2.setTargetPosition(ticks);
-        r1.setTargetPosition(ticks);
-        r2.setTargetPosition(ticks);
+        l1.setPower(-1);
+        l2.setPower(1);
+        r1.setPower(1);
+        r2.setPower(-1);
 
-        l1.setPower(-0.5);
-        l2.setPower(0.5);
-        r1.setPower(0.5);
-        r2.setPower(-0.5);
-
-        l1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        l2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        r1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        r2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        l1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        l2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        r1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        r2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        sleep(ms);
     }
+
+    //linear slide up method
+    public void linearSlideUp (int ms)
+    {
+        linearSlide.setPower(-0.5);
+        sleep(ms);
+    }
+
+    //linear slide down method
+    public void linearSlideDown (int ms)
+    {
+        linearSlide.setPower(0.5);
+
+        sleep(ms);
+    }
+
+    //hooks for base up method
+    public void hookUp ()
+    {
+        hook1.setPosition(1);
+        hook2.setPosition(0);
+    }
+
+    //hook for base down
+    public void hookDown ()
+    {
+        hook1.setPosition(0);
+        hook2.setPosition(1);
+    }
+
+
+
+
 
 //--------------------------------------------------------------------------------------------------
 
