@@ -49,14 +49,8 @@ public class Autonomous_2 extends LinearOpMode
 
         //start of movement
 
-        hookUp();
-        hookDown();
-        forward(2000);
-        backward(2000);
-        strafe_right(2000);
-        strafe_left(2000);
-        linearSlideUp(2000);
-        linearSlideDown(2000);
+        strafe_left(3000);
+
 
 
 
@@ -69,10 +63,10 @@ public class Autonomous_2 extends LinearOpMode
     //forward method
     public void forward (int ms)
     {
-        l1.setPower(-0.5);
-        l2.setPower(-0.5);
-        r1.setPower(-0.5);
-        r2.setPower(-0.5);
+        l1.setPower(-1);
+        l2.setPower(-1);
+        r1.setPower(-1);
+        r2.setPower(-1);
 
         sleep(ms);
     }
@@ -80,10 +74,10 @@ public class Autonomous_2 extends LinearOpMode
     //backward method
     public void backward (int ms)
     {
-        l1.setPower(0.5);
-        l2.setPower(0.5);
-        r1.setPower(0.5);
-        r2.setPower(0.5);
+        l1.setPower(1);
+        l2.setPower(1);
+        r1.setPower(1);
+        r2.setPower(1);
 
         sleep(ms);
     }
@@ -91,10 +85,10 @@ public class Autonomous_2 extends LinearOpMode
     //strafe left method
     public void strafe_left (int ms)
     {
-        l1.setPower(0.5);
-        l2.setPower(-0.5);
-        r1.setPower(-0.5);
-        r2.setPower(0.5);
+        l1.setPower(0.8);
+        l2.setPower(-1);
+        r1.setPower(-0.8);
+        r2.setPower(1);
 
         sleep(ms);
     }
@@ -102,10 +96,10 @@ public class Autonomous_2 extends LinearOpMode
     //strafe right method
     public void strafe_right (int ms)
     {
-        l1.setPower(-0.5);
-        l2.setPower(0.5);
-        r1.setPower(0.5);
-        r2.setPower(-0.5);
+        l1.setPower(-1);
+        l2.setPower(1);
+        r1.setPower(1);
+        r2.setPower(-1);
 
         sleep(ms);
     }
@@ -113,14 +107,14 @@ public class Autonomous_2 extends LinearOpMode
     //linear slide up method
     public void linearSlideUp (int ms)
     {
-        linearSlide.setPower(-0.5);
+        linearSlide.setPower(-1);
         sleep(ms);
     }
 
     //linear slide down method
     public void linearSlideDown (int ms)
     {
-        linearSlide.setPower(0.5);
+        linearSlide.setPower(1);
 
         sleep(ms);
     }

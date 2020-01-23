@@ -55,10 +55,9 @@ public class Autonomous_1 extends LinearOpMode
         backward(500);
         hookDown();
         strafe_right(300);
-        forward(2300);
+        forward(1800);
         hookUp();
-        strafe_left(3000);
-        backward(2000);
+        strafe_left(8000);
     }
 
 //--------------------------------------------------------------------------------------------------
@@ -90,9 +89,9 @@ public class Autonomous_1 extends LinearOpMode
     //strafe left method
     public void strafe_left (int ms)
     {
-        l1.setPower(1);
+        l1.setPower(0.6);
         l2.setPower(-1);
-        r1.setPower(-1);
+        r1.setPower(-0.6);
         r2.setPower(1);
 
         sleep(ms);
@@ -101,9 +100,9 @@ public class Autonomous_1 extends LinearOpMode
     //strafe right method
     public void strafe_right (int ms)
     {
-        l1.setPower(-1);
-        l2.setPower(1);
-        r1.setPower(1);
+        l1.setPower(-0.7);
+        l2.setPower(0.7);
+        r1.setPower(0.7);
         r2.setPower(-1);
 
         sleep(ms);

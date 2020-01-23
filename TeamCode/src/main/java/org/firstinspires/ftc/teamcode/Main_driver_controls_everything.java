@@ -81,13 +81,13 @@ public class Main_driver_controls_everything extends OpMode
         //on -1 value, centerGripper goes down
 
         //center gripper control
-        if (gamepad1.y)
+        if (gamepad1.y) //go up
         {
             centerGripper.setPosition(1);
         }
-        else if (gamepad1.a)
+        else if (gamepad1.a)    //go down
         {
-            centerGripper.setPosition(-1);
+            centerGripper.setPosition(0);
         }
 
         /*
@@ -103,17 +103,23 @@ public class Main_driver_controls_everything extends OpMode
         //leftGripper closes on 1
 
         //left and right gripper control
-        if (gamepad1.x)
+        if (gamepad1.x) //closes claw
         {
             rightGripper.setPosition(0);
             leftGripper.setPosition(1);
         }
-        else if (gamepad1.b)
+        else if (gamepad1.b) //opens claw
         {
             rightGripper.setPosition(1);
             leftGripper.setPosition(0);
         }
 
+        if (gamepad1.dpad_left)
+        {
+            rightGripper.setPosition(1);
+            leftGripper.setPosition(0);
+            centerGripper.setPosition(1);
+        }
 
         //hook for base control
         if (gamepad1.dpad_up)
@@ -127,6 +133,7 @@ public class Main_driver_controls_everything extends OpMode
             hook1.setPosition(0);
             hook2.setPosition(1);
         }
+
 
 
 
