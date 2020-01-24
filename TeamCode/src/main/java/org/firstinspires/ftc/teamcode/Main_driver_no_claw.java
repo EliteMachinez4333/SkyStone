@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode ;
 import com.qualcomm.robotcore.hardware.DcMotor        ;
 import com.qualcomm.robotcore.hardware.DcMotorSimple  ;
@@ -11,6 +12,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import java.util.Arrays;
 
 
+@Disabled
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Main (driver does not control claw)", group="TeleOp")
 public class Main_driver_no_claw extends OpMode
 {

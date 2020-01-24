@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode ;
 import com.qualcomm.robotcore.hardware.DcMotor        ;
 import com.qualcomm.robotcore.hardware.DcMotorSimple  ;
@@ -10,7 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import java.util.Arrays;
 
-
+@Disabled
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="beta_4", group="TeleOp")
 public class beta_4 extends OpMode
 {

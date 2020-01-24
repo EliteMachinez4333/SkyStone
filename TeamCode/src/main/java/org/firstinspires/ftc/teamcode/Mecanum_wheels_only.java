@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode ;
 import com.qualcomm.robotcore.hardware.DcMotor        ;
 import com.qualcomm.robotcore.hardware.DcMotorSimple  ;
@@ -8,7 +9,7 @@ import java.util.Arrays;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import java.util.Arrays;
 
-
+@Disabled
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Mecanum Wheels Only", group="TeleOp")
 public class Mecanum_wheels_only extends OpMode
 {
