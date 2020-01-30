@@ -1,13 +1,12 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode ;
 import com.qualcomm.robotcore.hardware.DcMotor        ;
-import com.qualcomm.robotcore.hardware.DcMotorSimple  ;
-import com.qualcomm.robotcore.hardware.Servo          ;
+
 import java.util.Arrays;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import java.util.Arrays;
+
+import org.firstinspires.ftc.teamcode.Auto.AutoSubsystems;
 
 @Disabled
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Mecanum Wheels Only", group="TeleOp")
@@ -27,10 +26,10 @@ public class Mecanum_wheels_only extends OpMode
     public void init()
     //this is where the lines for init-ing and reversing goes
     {
-        l1   = hardwareMap.dcMotor.get(UniversalConstants.l1) ;
-        l2   = hardwareMap.dcMotor.get(UniversalConstants.l2) ;
-        r1   = hardwareMap.dcMotor.get(UniversalConstants.r1);
-        r2   = hardwareMap.dcMotor.get(UniversalConstants.r2);
+        l1           = hardwareMap.dcMotor.get(TeleOpSubsystems.l1) ;
+        l2           = hardwareMap.dcMotor.get(TeleOpSubsystems.l2) ;
+        r1           = hardwareMap.dcMotor.get(TeleOpSubsystems.r1);
+        r2           = hardwareMap.dcMotor.get(TeleOpSubsystems.r2);
 
         //reverse all but rightFrontWheel, because of the way that the REV motors are oriented
        // l1.setDirection(DcMotorSimple.Direction.REVERSE);

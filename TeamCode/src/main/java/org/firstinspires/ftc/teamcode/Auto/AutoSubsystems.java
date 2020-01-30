@@ -1,6 +1,6 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Auto;
 
-public class UniversalConstants
+public class AutoSubsystems
 {
     static final String l1      = "l1";
     static final String l2      = "l2";

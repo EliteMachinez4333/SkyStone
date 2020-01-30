@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TeleOp.Tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode ;
 import com.qualcomm.robotcore.hardware.DcMotor        ;
@@ -6,6 +6,9 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple  ;
 import com.qualcomm.robotcore.hardware.Servo          ;
 import java.util.Arrays;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+
+import org.firstinspires.ftc.teamcode.TeleOp.TeleOpSubsystems;
+
 import java.util.Arrays;
 
 
@@ -25,10 +28,11 @@ public class TankDrive_Test extends OpMode
     public void init()
     //this is where the lines for init-ing and reversing goes
     {
-        l1 = hardwareMap.dcMotor.get("l1");
-        l2 = hardwareMap.dcMotor.get("l2");
-        r1 = hardwareMap.dcMotor.get("r1");
-        r2 = hardwareMap.dcMotor.get("r2");
+        l1           = hardwareMap.dcMotor.get(TestSubsytems.l1) ;
+        l2           = hardwareMap.dcMotor.get(TestSubsytems.l2) ;
+        r1           = hardwareMap.dcMotor.get(TestSubsytems.r1);
+        r2           = hardwareMap.dcMotor.get(TestSubsytems.r2);
+
 
         //reverse all but rightFrontWheel, because of the way that the REV motors are oriented
         l1.setDirection(DcMotorSimple.Direction.REVERSE);

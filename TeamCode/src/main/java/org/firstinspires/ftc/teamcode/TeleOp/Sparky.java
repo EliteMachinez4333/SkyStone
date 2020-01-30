@@ -1,6 +1,5 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode ;
 import com.qualcomm.robotcore.hardware.DcMotor        ;
 import com.qualcomm.robotcore.hardware.DcMotorSimple  ;
@@ -9,19 +8,21 @@ import java.util.Arrays;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.TeleOp.TeleOpSubsystems;
+
 import java.util.Arrays;
 
-@Disabled
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Beta 2", group="TeleOp")
-public class beta_2 extends OpMode
+
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Sparky TeleOp", group="TeleOp")
+public class Sparky extends OpMode
 {
 
     private static final double TRIGGERTHRESHOLD = 0.2     ;
     private static final double ACCEPTINPUTTHRESHOLD = 0.1;
-    private static final double SCALEDPOWER = 0.4; //Emphasis on current controller reading (vs current motor power) on the drive train
+    private static final double SCALEDPOWER = 1; //Emphasis on current controller reading (vs current motor power) on the drive train
 
-    private static DcMotor l1, l2, r1, r2, linearSlide1, linearSlide2;
-    private static Servo  hook, rightGripper, centerGripper, leftGripper;
+    private static DcMotor l1, l2, r1, r2, linearSlide;
+    private static Servo  centerGripper, rightGripper, leftGripper, hook1, hook2;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -31,26 +32,24 @@ public class beta_2 extends OpMode
     public void init()
     //this is where the lines for init-ing and reversing goes
     {
-        l1           = hardwareMap.dcMotor.get(UniversalConstants.l1) ;
-        l2           = hardwareMap.dcMotor.get(UniversalConstants.l2) ;
-        r1           = hardwareMap.dcMotor.get(UniversalConstants.r1);
-        r2           = hardwareMap.dcMotor.get(UniversalConstants.r2);
+        l1           = hardwareMap.dcMotor.get(TeleOpSubsystems.l1) ;
+        l2           = hardwareMap.dcMotor.get(TeleOpSubsystems.l2) ;
+        r1           = hardwareMap.dcMotor.get(TeleOpSubsystems.r1);
+        r2           = hardwareMap.dcMotor.get(TeleOpSubsystems.r2);
 
-        linearSlide1   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide1);
-        linearSlide2   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide2);
+        linearSlide   = hardwareMap.dcMotor.get(TeleOpSubsystems.linearSlide);
 
-     //   hook   = hardwareMap.servo.get(UniversalConstants.hook);
+        centerGripper   = hardwareMap.servo.get(TeleOpSubsystems.centerGripper);
+        rightGripper   = hardwareMap.servo.get(TeleOpSubsystems.rightGripper);
+        leftGripper   = hardwareMap.servo.get(TeleOpSubsystems.leftGripper);
 
-        leftGripper   = hardwareMap.servo.get(UniversalConstants.leftGripper);
-        centerGripper   = hardwareMap.servo.get(UniversalConstants.centerGripper);
-        rightGripper   = hardwareMap.servo.get(UniversalConstants.rightGripper);
+        hook1   = hardwareMap.servo.get(TeleOpSubsystems.hook1);
+        hook2   = hardwareMap.servo.get(TeleOpSubsystems.hook2);
 
-
-
-        l1.setDirection(DcMotorSimple.Direction.REVERSE);
-        l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
-        r1.setDirection(DcMotorSimple.Direction.REVERSE);
-        r2.setDirection(DcMotorSimple.Direction.REVERSE);
+        // l1.setDirection(DcMotorSimple.Direction.REVERSE);
+        // l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
+        // r1.setDirection(DcMotorSimple.Direction.REVERSE);
+        // r2.setDirection(DcMotorSimple.Direction.REVERSE);
 
         double volts = hardwareMap.voltageSensor.get("Expansion Hub 2").getVoltage();
     }
@@ -64,53 +63,81 @@ public class beta_2 extends OpMode
 //--------------------------------------------------------------------------------------------------
 
         //linear slide control
-        if (gamepad2.dpad_up)
+        if (gamepad2.right_bumper)
         {
-          centerGripper.setPosition(0);
+            linearSlide.setPower(1);
+        }
+        else if (gamepad2.left_bumper)
+        {
+            linearSlide.setPower(-1);
+        }
+        else
+        {
+            linearSlide.setPower(0);
         }
 
-        if (gamepad2.dpad_down)
+        //on +1 value, centerGripper goes up
+        //on 0.5 value, centerGripper goes down very slowly
+        //on 0 value, centerGripper goes down
+        //on -0.5 value, centerGripper goes down
+        //on -1 value, centerGripper goes down
+
+        //center gripper control
+        if (gamepad2.y) //go up
         {
             centerGripper.setPosition(1);
         }
+        else if (gamepad2.a)    //go down
+        {
+            centerGripper.setPosition(0);
+        }
+
+        /*
+        else
+        {
+            centerGripper.setPosition(0.5);
+        }
+        */
+
+        //right and center gripper must be reversed (to make all close in)
+
+        //rightGripper closes on 0
+        //leftGripper closes on 1
+
+        //left and right gripper control
+        if (gamepad2.x) //closes claw
+        {
+            rightGripper.setPosition(0);
+            leftGripper.setPosition(1);
+        }
+        else if (gamepad2.b) //opens claw
+        {
+            rightGripper.setPosition(1);
+            leftGripper.setPosition(0);
+        }
 
 
-        //hook for dragging platform
+        //releases all claw parts at once
+        if (gamepad2.dpad_left)
+        {
+            rightGripper.setPosition(1);
+            leftGripper.setPosition(0);
+            centerGripper.setPosition(1);
+        }
+
+        //hook for base control
         if (gamepad1.dpad_up)
         {
-            hook.setPosition(1);
+            hook1.setPosition(1);
+            hook2.setPosition(0);
+
         }
-
-
-        if (gamepad1.dpad_down)
+        else if (gamepad1.dpad_down)
         {
-            hook.setPosition(0);
+            hook1.setPosition(0);
+            hook2.setPosition(1);
         }
 
-
-        //center gripper using trigger
-        centerGripper.setPosition(gamepad2.right_trigger);
-        centerGripper.setPosition(-gamepad2.left_trigger);
-
-
-
-
-
-
-
-        //right and left gripper x & b
-        //right gripper port 2
-        if (gamepad2.x)
-        {
-            leftGripper.setPosition(-1);
-            rightGripper.setPosition(1);
-        }
-
-        if (gamepad2.b)
-        {
-            leftGripper.setPosition(1);
-            rightGripper.setPosition(-1);
-        }
 
 
 

@@ -1,18 +1,19 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode ;
 import com.qualcomm.robotcore.hardware.DcMotor        ;
-import com.qualcomm.robotcore.hardware.DcMotorSimple  ;
 import com.qualcomm.robotcore.hardware.Servo          ;
 import java.util.Arrays;
-import com.qualcomm.robotcore.hardware.ColorSensor;
+
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import java.util.Arrays;
+import org.firstinspires.ftc.teamcode.Auto.AutoSubsystems;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Main (driver controls claw)", group="TeleOp")
-public class Main_driver_controls_claw extends OpMode
+@Disabled
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Main (driver does not control claw)", group="TeleOp")
+public class Main_driver_no_claw extends OpMode
 {
 
     private static final double TRIGGERTHRESHOLD = 0.2     ;
@@ -30,19 +31,19 @@ public class Main_driver_controls_claw extends OpMode
     public void init()
     //this is where the lines for init-ing and reversing goes
     {
-        l1           = hardwareMap.dcMotor.get(UniversalConstants.l1) ;
-        l2           = hardwareMap.dcMotor.get(UniversalConstants.l2) ;
-        r1           = hardwareMap.dcMotor.get(UniversalConstants.r1);
-        r2           = hardwareMap.dcMotor.get(UniversalConstants.r2);
+        l1           = hardwareMap.dcMotor.get(TeleOpSubsystems.l1) ;
+        l2           = hardwareMap.dcMotor.get(TeleOpSubsystems.l2) ;
+        r1           = hardwareMap.dcMotor.get(TeleOpSubsystems.r1);
+        r2           = hardwareMap.dcMotor.get(TeleOpSubsystems.r2);
 
-        linearSlide   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide);
+        linearSlide   = hardwareMap.dcMotor.get(TeleOpSubsystems.linearSlide);
 
-        centerGripper   = hardwareMap.servo.get(UniversalConstants.centerGripper);
-        rightGripper   = hardwareMap.servo.get(UniversalConstants.rightGripper);
-        leftGripper   = hardwareMap.servo.get(UniversalConstants.leftGripper);
+        centerGripper   = hardwareMap.servo.get(TeleOpSubsystems.centerGripper);
+        rightGripper   = hardwareMap.servo.get(TeleOpSubsystems.rightGripper);
+        leftGripper   = hardwareMap.servo.get(TeleOpSubsystems.leftGripper);
 
-        hook1   = hardwareMap.servo.get(UniversalConstants.hook1);
-        hook2   = hardwareMap.servo.get(UniversalConstants.hook2);
+        hook1   = hardwareMap.servo.get(TeleOpSubsystems.hook1);
+        hook2   = hardwareMap.servo.get(TeleOpSubsystems.hook2);
 
         // l1.setDirection(DcMotorSimple.Direction.REVERSE);
         // l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
@@ -91,12 +92,12 @@ public class Main_driver_controls_claw extends OpMode
         //leftGripper closes on 1
 
         //left and right gripper control
-        if (gamepad1.x)
+        if (gamepad2.x)
         {
             rightGripper.setPosition(0);
             leftGripper.setPosition(1);
         }
-        else if (gamepad1.b)
+        else if (gamepad2.b)
         {
             rightGripper.setPosition(1);
             leftGripper.setPosition(0);

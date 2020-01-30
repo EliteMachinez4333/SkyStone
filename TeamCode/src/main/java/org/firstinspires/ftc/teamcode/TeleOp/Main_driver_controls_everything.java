@@ -1,27 +1,26 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode ;
 import com.qualcomm.robotcore.hardware.DcMotor        ;
-import com.qualcomm.robotcore.hardware.DcMotorSimple  ;
 import com.qualcomm.robotcore.hardware.Servo          ;
 import java.util.Arrays;
-import com.qualcomm.robotcore.hardware.ColorSensor;
+
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import java.util.Arrays;
+import org.firstinspires.ftc.teamcode.Auto.AutoSubsystems;
 
 @Disabled
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="beta_4", group="TeleOp")
-public class beta_4 extends OpMode
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Main (driver controls everything", group="TeleOp")
+public class Main_driver_controls_everything extends OpMode
 {
 
     private static final double TRIGGERTHRESHOLD = 0.2     ;
     private static final double ACCEPTINPUTTHRESHOLD = 0.1;
     private static final double SCALEDPOWER = 1; //Emphasis on current controller reading (vs current motor power) on the drive train
 
-    private static DcMotor l1, l2, r1, r2, linearSlide1, linearSlide2;
-    private static Servo  centerGripper, rightGripper, leftGripper;
+    private static DcMotor l1, l2, r1, r2, linearSlide;
+    private static Servo  centerGripper, rightGripper, leftGripper, hook1, hook2;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -31,22 +30,19 @@ public class beta_4 extends OpMode
     public void init()
     //this is where the lines for init-ing and reversing goes
     {
-        l1           = hardwareMap.dcMotor.get(UniversalConstants.l1) ;
-        l2           = hardwareMap.dcMotor.get(UniversalConstants.l2) ;
-        r1           = hardwareMap.dcMotor.get(UniversalConstants.r1);
-        r2           = hardwareMap.dcMotor.get(UniversalConstants.r2);
+        l1           = hardwareMap.dcMotor.get(TeleOpSubsystems.l1) ;
+        l2           = hardwareMap.dcMotor.get(TeleOpSubsystems.l2) ;
+        r1           = hardwareMap.dcMotor.get(TeleOpSubsystems.r1);
+        r2           = hardwareMap.dcMotor.get(TeleOpSubsystems.r2);
 
-        linearSlide1   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide1);
-        linearSlide2   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide2);
+        linearSlide   = hardwareMap.dcMotor.get(TeleOpSubsystems.linearSlide);
 
-        centerGripper   = hardwareMap.servo.get(UniversalConstants.centerGripper);
-        rightGripper   = hardwareMap.servo.get(UniversalConstants.rightGripper);
-        leftGripper   = hardwareMap.servo.get(UniversalConstants.leftGripper);
+        centerGripper   = hardwareMap.servo.get(TeleOpSubsystems.centerGripper);
+        rightGripper   = hardwareMap.servo.get(TeleOpSubsystems.rightGripper);
+        leftGripper   = hardwareMap.servo.get(TeleOpSubsystems.leftGripper);
 
-
-
-
-
+        hook1   = hardwareMap.servo.get(TeleOpSubsystems.hook1);
+        hook2   = hardwareMap.servo.get(TeleOpSubsystems.hook2);
 
         // l1.setDirection(DcMotorSimple.Direction.REVERSE);
         // l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
@@ -65,19 +61,18 @@ public class beta_4 extends OpMode
 //--------------------------------------------------------------------------------------------------
 
         //linear slide control
-        if (gamepad2.left_stick_y > 0)
+        if (gamepad1.right_bumper)
         {
-            linearSlide2.setPower(-1);
+            linearSlide.setPower(1);
         }
-        else if (gamepad2.left_stick_y < 0)
+        else if (gamepad1.left_bumper)
         {
-            linearSlide2.setPower(1);
+            linearSlide.setPower(-1);
         }
-
-
-        linearSlide1.setPower(-gamepad2.right_stick_y);
-
-//right and center gripper must be reversed (to make all close in)
+        else
+            {
+                linearSlide.setPower(0);
+            }
 
         //on +1 value, centerGripper goes up
         //on 0.5 value, centerGripper goes down very slowly
@@ -85,34 +80,60 @@ public class beta_4 extends OpMode
         //on -0.5 value, centerGripper goes down
         //on -1 value, centerGripper goes down
 
-        if (gamepad2.b)
+        //center gripper control
+        if (gamepad1.y) //go up
         {
             centerGripper.setPosition(1);
         }
-        else if (gamepad2.a)
+        else if (gamepad1.a)    //go down
         {
-            centerGripper.setPosition(-1);
+            centerGripper.setPosition(0);
         }
+
+        /*
         else
         {
             centerGripper.setPosition(0.5);
         }
+        */
 
+        //right and center gripper must be reversed (to make all close in)
 
-        //rightGripper cloess on 0
+        //rightGripper closes on 0
         //leftGripper closes on 1
 
-
-        if (gamepad2.x)
+        //left and right gripper control
+        if (gamepad1.x) //closes claw
         {
             rightGripper.setPosition(0);
             leftGripper.setPosition(1);
         }
-        else if (gamepad2.y)
+        else if (gamepad1.b) //opens claw
         {
             rightGripper.setPosition(1);
             leftGripper.setPosition(0);
         }
+
+        if (gamepad1.dpad_left)
+        {
+            rightGripper.setPosition(1);
+            leftGripper.setPosition(0);
+            centerGripper.setPosition(1);
+        }
+
+        //hook for base control
+        if (gamepad1.dpad_up)
+        {
+            hook1.setPosition(1);
+            hook2.setPosition(0);
+
+        }
+        else if (gamepad1.dpad_down)
+        {
+            hook1.setPosition(0);
+            hook2.setPosition(1);
+        }
+
 
 
 

@@ -1,18 +1,17 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode ;
 import com.qualcomm.robotcore.hardware.DcMotor        ;
-import com.qualcomm.robotcore.hardware.DcMotorSimple  ;
 import com.qualcomm.robotcore.hardware.Servo          ;
 import java.util.Arrays;
-import com.qualcomm.robotcore.hardware.ColorSensor;
+
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import java.util.Arrays;
+import org.firstinspires.ftc.teamcode.Auto.AutoSubsystems;
 
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Sparky TeleOp", group="TeleOp")
-public class Sparky extends OpMode
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Main (driver controls claw)", group="TeleOp")
+public class Main_driver_controls_claw extends OpMode
 {
 
     private static final double TRIGGERTHRESHOLD = 0.2     ;
@@ -30,19 +29,19 @@ public class Sparky extends OpMode
     public void init()
     //this is where the lines for init-ing and reversing goes
     {
-        l1           = hardwareMap.dcMotor.get(UniversalConstants.l1) ;
-        l2           = hardwareMap.dcMotor.get(UniversalConstants.l2) ;
-        r1           = hardwareMap.dcMotor.get(UniversalConstants.r1);
-        r2           = hardwareMap.dcMotor.get(UniversalConstants.r2);
+        l1           = hardwareMap.dcMotor.get(TeleOpSubsystems.l1) ;
+        l2           = hardwareMap.dcMotor.get(TeleOpSubsystems.l2) ;
+        r1           = hardwareMap.dcMotor.get(TeleOpSubsystems.r1);
+        r2           = hardwareMap.dcMotor.get(TeleOpSubsystems.r2);
 
-        linearSlide   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide);
+        linearSlide   = hardwareMap.dcMotor.get(TeleOpSubsystems.linearSlide);
 
-        centerGripper   = hardwareMap.servo.get(UniversalConstants.centerGripper);
-        rightGripper   = hardwareMap.servo.get(UniversalConstants.rightGripper);
-        leftGripper   = hardwareMap.servo.get(UniversalConstants.leftGripper);
+        centerGripper   = hardwareMap.servo.get(TeleOpSubsystems.centerGripper);
+        rightGripper   = hardwareMap.servo.get(TeleOpSubsystems.rightGripper);
+        leftGripper   = hardwareMap.servo.get(TeleOpSubsystems.leftGripper);
 
-        hook1   = hardwareMap.servo.get(UniversalConstants.hook1);
-        hook2   = hardwareMap.servo.get(UniversalConstants.hook2);
+        hook1   = hardwareMap.servo.get(TeleOpSubsystems.hook1);
+        hook2   = hardwareMap.servo.get(TeleOpSubsystems.hook2);
 
         // l1.setDirection(DcMotorSimple.Direction.REVERSE);
         // l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
@@ -61,18 +60,8 @@ public class Sparky extends OpMode
 //--------------------------------------------------------------------------------------------------
 
         //linear slide control
-        if (gamepad2.right_bumper)
-        {
-            linearSlide.setPower(1);
-        }
-        else if (gamepad2.left_bumper)
-        {
-            linearSlide.setPower(-1);
-        }
-        else
-        {
-            linearSlide.setPower(0);
-        }
+        linearSlide.setPower(-gamepad2.right_stick_y);
+
 
         //on +1 value, centerGripper goes up
         //on 0.5 value, centerGripper goes down very slowly
@@ -81,21 +70,19 @@ public class Sparky extends OpMode
         //on -1 value, centerGripper goes down
 
         //center gripper control
-        if (gamepad2.y) //go up
+        if (gamepad2.y)
         {
             centerGripper.setPosition(1);
         }
-        else if (gamepad2.a)    //go down
+        else if (gamepad2.a)
         {
-            centerGripper.setPosition(0);
+            centerGripper.setPosition(-1);
         }
-
-        /*
         else
         {
             centerGripper.setPosition(0.5);
         }
-        */
+
 
         //right and center gripper must be reversed (to make all close in)
 
@@ -103,25 +90,17 @@ public class Sparky extends OpMode
         //leftGripper closes on 1
 
         //left and right gripper control
-        if (gamepad2.x) //closes claw
+        if (gamepad1.x)
         {
             rightGripper.setPosition(0);
             leftGripper.setPosition(1);
         }
-        else if (gamepad2.b) //opens claw
+        else if (gamepad1.b)
         {
             rightGripper.setPosition(1);
             leftGripper.setPosition(0);
         }
 
-
-        //releases all claw parts at once
-        if (gamepad2.dpad_left)
-        {
-            rightGripper.setPosition(1);
-            leftGripper.setPosition(0);
-            centerGripper.setPosition(1);
-        }
 
         //hook for base control
         if (gamepad1.dpad_up)
@@ -135,7 +114,6 @@ public class Sparky extends OpMode
             hook1.setPosition(0);
             hook2.setPosition(1);
         }
-
 
 
 
