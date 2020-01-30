@@ -1,12 +1,11 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode ;
-import com.qualcomm.robotcore.hardware.DcMotor        ;
-import com.qualcomm.robotcore.hardware.DcMotorSimple  ;
 import com.qualcomm.robotcore.hardware.Servo          ;
+
+import org.firstinspires.ftc.teamcode.Auto.AutoSubsystems;
 
 @Autonomous(name="Autonomous 2", group="Autonomous")
 public class Autonomous_2 extends LinearOpMode
@@ -17,19 +16,19 @@ public class Autonomous_2 extends LinearOpMode
     @Override
     public void runOpMode() throws InterruptedException
     {
-        l1             = hardwareMap.dcMotor.get(UniversalConstants.l1) ;
-        l2             = hardwareMap.dcMotor.get(UniversalConstants.l2) ;
-        r1             = hardwareMap.dcMotor.get(UniversalConstants.r1);
-        r2             = hardwareMap.dcMotor.get(UniversalConstants.r2);
+        l1             = hardwareMap.dcMotor.get(AutoSubsystems.l1) ;
+        l2             = hardwareMap.dcMotor.get(AutoSubsystems.l2) ;
+        r1             = hardwareMap.dcMotor.get(AutoSubsystems.r1);
+        r2             = hardwareMap.dcMotor.get(AutoSubsystems.r2);
 
-        linearSlide   = hardwareMap.dcMotor.get(UniversalConstants.linearSlide);
+        linearSlide   = hardwareMap.dcMotor.get(AutoSubsystems.linearSlide);
 
-        leftGripper   = hardwareMap.servo.get(UniversalConstants.leftGripper);
-        rightGripper   = hardwareMap.servo.get(UniversalConstants.rightGripper);
-        centerGripper   = hardwareMap.servo.get(UniversalConstants.rightGripper);
+        leftGripper   = hardwareMap.servo.get(AutoSubsystems.leftGripper);
+        rightGripper   = hardwareMap.servo.get(AutoSubsystems.rightGripper);
+        centerGripper   = hardwareMap.servo.get(AutoSubsystems.rightGripper);
 
-        hook1   = hardwareMap.servo.get(UniversalConstants.hook1);
-        hook2   = hardwareMap.servo.get(UniversalConstants.hook2);
+        hook1   = hardwareMap.servo.get(AutoSubsystems.hook1);
+        hook2   = hardwareMap.servo.get(AutoSubsystems.hook2);
 
         // reverse opposite facing motors
         // l1.setDirection(DcMotorSimple.Direction.REVERSE);
