@@ -21,6 +21,13 @@ public class TeleOpSubsystems
     static final String hook1 = "hook1";
     static final String hook2 = "hook2";
 
+    static final String i1 = "i1";
+    static final String i2 = "i2";
+
+    static final String i3 = "i2";
+    static final String i4 = "i2";
+
+
 
     static final String claw    = "claw";
 

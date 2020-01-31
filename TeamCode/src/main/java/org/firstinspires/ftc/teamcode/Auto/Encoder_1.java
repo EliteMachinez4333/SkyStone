@@ -9,30 +9,25 @@ import com.qualcomm.robotcore.hardware.DcMotor        ;
 import com.qualcomm.robotcore.hardware.DcMotorSimple  ;
 import com.qualcomm.robotcore.hardware.Servo          ;
 
-@Disabled
 @Autonomous(name="Encoder 1", group="Autonomous")
 public class Encoder_1 extends LinearOpMode
 {
     private static DcMotor l1, l2, r1, r2;
 
+    static final double MOTOR_TICK_COUNT = 1120;
+
     @Override
     public void runOpMode() throws InterruptedException
     {
-        l1 = hardwareMap.dcMotor.get("l1");
-        l2 = hardwareMap.dcMotor.get("l2");
-        r1 = hardwareMap.dcMotor.get("r1");
-        r2 = hardwareMap.dcMotor.get("r2");
+        l1             = hardwareMap.dcMotor.get(AutoSubsystems.l1) ;
+        l2             = hardwareMap.dcMotor.get(AutoSubsystems.l2) ;
+        r1             = hardwareMap.dcMotor.get(AutoSubsystems.r1);
+        r2             = hardwareMap.dcMotor.get(AutoSubsystems.r2);
 
-
-        // reset encoder count kept by left motor.
-        l1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        l2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        r1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        r2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         // reverse opposite facing motors
-        // l1.setDirection(DcMotorSimple.Direction.REVERSE);
-        // l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
+         l1.setDirection(DcMotor.Direction.REVERSE);
+         l2.setDirection(DcMotor.Direction.REVERSE) ;
         // r1.setDirection(DcMotorSimple.Direction.REVERSE);
         // r2.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -46,8 +41,57 @@ public class Encoder_1 extends LinearOpMode
         telemetry.addData("Mode", "running");
         telemetry.update();
 
+        //1. Figure out tick count
+        //2. Stop and reset encoders
+        //3. Set the target position
+        //4. Set the desired power
+        //5. set to RUN_TO_POSITION
+        //6. Wait while isBusy()
+        //7. Stop the motors
 
-        forward(500);
+        int rev = 1120;
+
+        l1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        l2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        r1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        r2.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        int newTarget = l1.getTargetPosition() + (int)rev;
+
+        l1.setTargetPosition(rev);
+        l2.setTargetPosition(rev);
+        r1.setTargetPosition(rev);
+        r2.setTargetPosition(rev);
+
+        l1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        l2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        r1.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        r2.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        forwardPower(1);
+
+        while (l1.isBusy())
+        {
+            telemetry.addData("Status","Running motor to target position");
+            telemetry.update();
+        }
+
+        forwardPower(0);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 
@@ -55,8 +99,17 @@ public class Encoder_1 extends LinearOpMode
 
     //methods
 
+    //set power to motors easily
+    public void forwardPower(int power)
+        {
+            l1.setPower(-power);
+            l2.setPower(-power);
+            r1.setPower(power);
+            r2.setPower(power);
+        }
+
     //forward method
-    public void forward (int ticks)
+    public void forwardTicks (int ticks)
         {
             l1.setTargetPosition(ticks);
             l2.setTargetPosition(ticks);

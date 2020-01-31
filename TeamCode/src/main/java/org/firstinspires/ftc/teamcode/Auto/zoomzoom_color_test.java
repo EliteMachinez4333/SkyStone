@@ -58,7 +58,7 @@ public class zoomzoom_color_test extends LinearOpMode
 
         sleep(2000);
 
-        if (colorSensor.red() + colorSensor.green() > 100)
+        if (colorSensor.red()*10 + colorSensor.green()*10 > 800)
             {
                 l1.setPower(1);
                 sleep(700);

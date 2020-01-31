@@ -1,22 +1,28 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode ;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor        ;
 
 import java.util.Arrays;
 
-import org.firstinspires.ftc.teamcode.Auto.AutoSubsystems;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="Mecanum Wheels Only", group="TeleOp")
-public class Mecanum_wheels_only extends OpMode
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name="intake", group="TeleOp")
+public class intake extends OpMode
 {
 
     private static final double TRIGGERTHRESHOLD = .2     ;
     private static final double ACCEPTINPUTTHRESHOLD = .15;
-    private static final double SCALEDPOWER = 1; //Emphasis on current controller reading (vs current motor power) on the drive train
+    private static final double SCALEDPOWER = 0.6; //Emphasis on current controller reading (vs current motor power) on the drive train
 
-    private static DcMotor l1, l2, r1, r2, i1, i2, a;
-  //  private static Servo r, c;
+
+    //  private static final double SCALEDPOWER = 0.4; //Emphasis on current controller reading (vs current motor power) on the drive train
+
+
+    private static DcMotor l1, l2, r1, r2, i1, i2;
+    private static ColorSensor colorSensor;
+
+    //  private static Servo r, c;
 
 //--------------------------------------------------------------------------------------------------
 
@@ -29,11 +35,17 @@ public class Mecanum_wheels_only extends OpMode
         r1           = hardwareMap.dcMotor.get(TeleOpSubsystems.r1);
         r2           = hardwareMap.dcMotor.get(TeleOpSubsystems.r2);
 
+        i1           = hardwareMap.dcMotor.get(TeleOpSubsystems.i1);
+        i2           = hardwareMap.dcMotor.get(TeleOpSubsystems.i2);
+
+        colorSensor = hardwareMap.get(ColorSensor.class, "c");
+
+
         //reverse all but rightFrontWheel, because of the way that the REV motors are oriented
-       l1.setDirection(DcMotor.Direction.REVERSE);
-       // l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
-       // r1.setDirection(DcMotorSimple.Direction.REVERSE);
-        r2.setDirection(DcMotor.Direction.REVERSE);
+         l1.setDirection(DcMotor.Direction.REVERSE);
+         l2.setDirection(DcMotor.Direction.REVERSE) ;
+        // r1.setDirection(DcMotor.Direction.REVERSE);
+        // r2.setDirection(DcMotor.Direction.REVERSE);
 
         double volts = hardwareMap.voltageSensor.get("Expansion Hub 1").getVoltage();
     }
@@ -45,14 +57,28 @@ public class Mecanum_wheels_only extends OpMode
 
     {
 //--------------------------------------------------------------------------------------------------
+        if (gamepad1.a)
+        {
+            i1.setPower(1);
+            i2.setPower(-1);
+        }
+        else if (gamepad1.b)
+        {
+            i1.setPower(-1);
+            i2.setPower(1);
+        }
+        else if (gamepad1.x)
+        {
+            i1.setPower(0);
+            i2.setPower(0);
+        }
 
 
-        if (gamepad1.y)
-            {
-                l2.setPower(0);
-                r2.setPower(0);
-            }
 
+
+        telemetry.addData("Red  ", (colorSensor.red()*10));
+        telemetry.addData("Green", (colorSensor.green()*10));
+        telemetry.addData("Blue ", (colorSensor.blue()*10));
 
 
 
