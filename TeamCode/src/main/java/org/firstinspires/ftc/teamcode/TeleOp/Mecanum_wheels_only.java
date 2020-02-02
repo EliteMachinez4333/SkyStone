@@ -31,9 +31,9 @@ public class Mecanum_wheels_only extends OpMode
 
         //reverse all but rightFrontWheel, because of the way that the REV motors are oriented
        l1.setDirection(DcMotor.Direction.REVERSE);
-       // l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
-       // r1.setDirection(DcMotorSimple.Direction.REVERSE);
-        r2.setDirection(DcMotor.Direction.REVERSE);
+       l2.setDirection(DcMotor.Direction.REVERSE) ;
+       // r1.setDirection(DcMotor.Direction.REVERSE);
+       // r2.setDirection(DcMotor.Direction.REVERSE);
 
         double volts = hardwareMap.voltageSensor.get("Expansion Hub 1").getVoltage();
     }
