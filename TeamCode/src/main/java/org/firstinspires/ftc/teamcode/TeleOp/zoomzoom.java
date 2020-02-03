@@ -94,7 +94,7 @@ public class zoomzoom extends OpMode
                 i1.setPower(0);
                 i2.setPower(0);
                 i3.setPosition(0.6);
-                i4.setPosition(0.6);
+                i4.setPosition(0.5);
             }
 
 

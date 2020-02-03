@@ -2,39 +2,53 @@ package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo          ;
 
 import org.firstinspires.ftc.teamcode.Auto.AutoSubsystems;
+import org.firstinspires.ftc.teamcode.TeleOp.TeleOpSubsystems;
 
-@Autonomous(name="Autonomous 2", group="Autonomous")
-public class Autonomous_2 extends LinearOpMode
+@Autonomous(name="autotest", group="Autonomous")
+public class autotest extends LinearOpMode
 {
-    private static DcMotor l1, l2, r1, r2, linearSlide;
-    private static Servo  rightGripper, leftGripper, centerGripper, hook1, hook2;
+    private static DcMotor l1, l2, r1, r2, i1, i2, linearSlide;
+    private static Servo i3, i4, c1, c2, c3, hook1, hook2;
+    private static ColorSensor colorSensor;
+
 
     @Override
     public void runOpMode() throws InterruptedException
     {
-        l1             = hardwareMap.dcMotor.get(AutoSubsystems.l1) ;
-        l2             = hardwareMap.dcMotor.get(AutoSubsystems.l2) ;
-        r1             = hardwareMap.dcMotor.get(AutoSubsystems.r1);
-        r2             = hardwareMap.dcMotor.get(AutoSubsystems.r2);
+        l1           = hardwareMap.dcMotor.get(AutoSubsystems.l1) ;
+        l2           = hardwareMap.dcMotor.get(AutoSubsystems.l2) ;
+        r1           = hardwareMap.dcMotor.get(AutoSubsystems.r1);
+        r2           = hardwareMap.dcMotor.get(AutoSubsystems.r2);
 
-        linearSlide   = hardwareMap.dcMotor.get(AutoSubsystems.linearSlide);
+        linearSlide  = hardwareMap.dcMotor.get(AutoSubsystems.linearSlide);
 
-        leftGripper   = hardwareMap.servo.get(AutoSubsystems.leftGripper);
-        rightGripper   = hardwareMap.servo.get(AutoSubsystems.rightGripper);
-        centerGripper   = hardwareMap.servo.get(AutoSubsystems.rightGripper);
+        i1           = hardwareMap.dcMotor.get(AutoSubsystems.i1);
+        i2           = hardwareMap.dcMotor.get(AutoSubsystems.i2);
+        i3           = hardwareMap.servo.get(AutoSubsystems.i3);
+        i4           = hardwareMap.servo.get(AutoSubsystems.i4);
 
-        hook1   = hardwareMap.servo.get(AutoSubsystems.hook1);
-        hook2   = hardwareMap.servo.get(AutoSubsystems.hook2);
+        c1           = hardwareMap.servo.get(AutoSubsystems.c1);
+        c2           = hardwareMap.servo.get(AutoSubsystems.c2);
+        c3           = hardwareMap.servo.get(AutoSubsystems.c3);
+
+        hook1           = hardwareMap.servo.get(AutoSubsystems.hook1);
+        hook2           = hardwareMap.servo.get(AutoSubsystems.hook2);
+
+        colorSensor = hardwareMap.get(ColorSensor.class, "c");
+
+
+        boolean skystone;
 
         // reverse opposite facing motors
-        // l1.setDirection(DcMotorSimple.Direction.REVERSE);
-        // l2.setDirection(DcMotorSimple.Direction.REVERSE) ;
-        // r1.setDirection(DcMotorSimple.Direction.REVERSE);
-        // r2.setDirection(DcMotorSimple.Direction.REVERSE);
+        l1.setDirection(DcMotor.Direction.REVERSE);
+        l2.setDirection(DcMotor.Direction.REVERSE) ;
+        // r1.setDirection(DcMotor.Direction.REVERSE);
+        // r2.setDirection(DcMotor.Direction.REVERSE);
 
         telemetry.addData("Mode", "waiting");
         telemetry.update();
@@ -46,11 +60,11 @@ public class Autonomous_2 extends LinearOpMode
         telemetry.addData("Mode", "running");
         telemetry.update();
 
-        //start of movement
+        //start of code
 
-        strafe_left(3000);
-
-
+        forward(1000);
+        strafe_left(1000);
+        strafe_right(1000);
 
 
     }
@@ -134,9 +148,24 @@ public class Autonomous_2 extends LinearOpMode
         sleep(2000);
     }
 
+    //intake on method
+    public void intakeOn (int ms)
+    {
+        i1.setPower(1);
+        i2.setPower(-1);
+        i3.setPosition(1);
+        i4.setPosition(-1);
+        sleep(ms);
+    }
 
-
-
+    public void intakeOff (int ms)
+    {
+        i1.setPower(-1);
+        i2.setPower(1);
+        i3.setPosition(-1);
+        i4.setPosition(1);
+        sleep(ms);
+    }
 
 //--------------------------------------------------------------------------------------------------
 
