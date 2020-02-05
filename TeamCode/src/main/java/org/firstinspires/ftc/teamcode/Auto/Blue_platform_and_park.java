@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo          ;
 import org.firstinspires.ftc.teamcode.Auto.AutoSubsystems;
 import org.firstinspires.ftc.teamcode.TeleOp.TeleOpSubsystems;
 
-@Autonomous(name="autotest", group="Autonomous")
-public class autotest extends LinearOpMode
+@Autonomous(name="(Blue) Platform & Park", group="Autonomous")
+public class Blue_platform_and_park extends LinearOpMode
 {
     private static DcMotor l1, l2, r1, r2, i1, i2, linearSlide;
     private static Servo i3, i4, c1, c2, c3, hook1, hook2;
@@ -62,13 +62,16 @@ public class autotest extends LinearOpMode
 
         //start of code
 
-        hook1.setPosition(0.6);
-        sleep(2000);
-        hook2.setPosition(0.5);
-        sleep(2000);
-
-
-        //  strafe_left(1000);
+        backward(500);
+        stop(1000);
+        strafe_right(700);
+        stop(1000);
+        backward(100);
+        stop(1000);
+       // hookDown();
+       // forward(1500);
+      //  hookUp();
+      //  strafe_left(1000);
 
 
 
@@ -147,7 +150,7 @@ public class autotest extends LinearOpMode
         //right hook
         hook2.setPosition(1);
 
-        sleep(1000);
+        sleep(2000);
     }
 
     //hook down method
@@ -159,6 +162,7 @@ public class autotest extends LinearOpMode
         //left hook
         hook2.setPosition(0.5);
 
+        sleep(1000);
     }
 
     //intake on method

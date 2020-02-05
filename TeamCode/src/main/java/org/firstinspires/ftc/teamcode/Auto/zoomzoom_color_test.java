@@ -68,13 +68,11 @@ public class zoomzoom_color_test extends LinearOpMode
             //if red + green is greater than 1250, we know that the stone is yellow (not a skystone)
                 //therefore it will strafe to the next block
             {
-                strafe_left(1000);
+                intakeOn(1000);
             }
             else
                 {
-
-                    forward(300);
-                    intakeOn(5000);
+                    intakeOff();
                 }
 
 
@@ -143,20 +141,26 @@ public class zoomzoom_color_test extends LinearOpMode
         sleep(ms);
     }
 
-    //hooks for base up method
+    //hooks for foundation, up method
     public void hookUp ()
     {
-        hook1.setPosition(1);
-        hook2.setPosition(0);
+        //left hook
+        hook1.setPosition(0);
+
+        //right hook
+        hook2.setPosition(1);
+
         sleep(2000);
     }
 
-    //hook for base down
+    //hook for foundation, down
     public void hookDown ()
     {
-        hook1.setPosition(0);
-        hook2.setPosition(1);
-        sleep(2000);
+        //right hook
+        hook1.setPosition(0.6);
+
+        //left hook
+        hook2.setPosition(0.5);
     }
 
     //intake on method
@@ -169,13 +173,12 @@ public class zoomzoom_color_test extends LinearOpMode
         sleep(ms);
     }
 
-    public void intakeOff (int ms)
+    public void intakeOff ()
     {
-        i1.setPower(-1);
-        i2.setPower(1);
-        i3.setPosition(-1);
-        i4.setPosition(1);
-        sleep(ms);
+        i1.setPower(0);
+        i2.setPower(0);
+        i3.setPosition(0);
+        i4.setPosition(0);
     }
 
 //--------------------------------------------------------------------------------------------------

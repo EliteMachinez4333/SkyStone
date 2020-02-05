@@ -17,7 +17,7 @@ public class zoomzoom extends OpMode
     private static double SCALEDPOWER; //Emphasis on current controller reading (vs current motor power) on the drive train
 
 
-    //  private static final double SCALEDPOWER = 0.4; //Emphasis on current controller reading (vs current motor power) on the drive train
+    //private static final double SCALEDPOWER = 0.4; //Emphasis on current controller reading (vs current motor power) on the drive train
 
 
     private static DcMotor l1, l2, r1, r2, i1, i2, linearSlide;
@@ -123,13 +123,16 @@ public class zoomzoom extends OpMode
 
 
         //control hook for moving platform
-        if (gamepad1.dpad_up)
+        if (gamepad1.dpad_down)
         {
-            hook1.setPosition(1);
-            hook2.setPosition(0);
+            //left hook
+            hook1.setPosition(0.6); // decrease to go down more
+
+            //right hook
+            hook2.setPosition(0.5); //increase to go down more
 
         }
-            else if (gamepad1.dpad_down)
+            else if (gamepad1.dpad_up)
             {
                 hook1.setPosition(0);
                 hook2.setPosition(1);
@@ -137,7 +140,7 @@ public class zoomzoom extends OpMode
 
 
         //control linear slide
-        linearSlide.setPower(-gamepad2.right_stick_y * 100);
+        linearSlide.setPower(gamepad2.right_stick_y * 100);
 
 
 
