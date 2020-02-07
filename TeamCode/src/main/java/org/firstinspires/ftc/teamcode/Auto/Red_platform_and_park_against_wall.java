@@ -9,9 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo          ;
 import org.firstinspires.ftc.teamcode.Auto.AutoSubsystems;
 import org.firstinspires.ftc.teamcode.TeleOp.TeleOpSubsystems;
 
-
-@Autonomous(name="autotest", group="Autonomous")
-public class autotest extends LinearOpMode
+@Autonomous(name="(Red) Platform & Park Against Wall", group="Autonomous")
+public class Red_platform_and_park_against_wall extends LinearOpMode
 {
     private static DcMotor l1, l2, r1, r2, i1, i2, linearSlide;
     private static Servo i3, i4, c1, c2, c3, hook1, hook2;
@@ -63,13 +62,28 @@ public class autotest extends LinearOpMode
 
         //start of code
 
-        //c1 is the *left claw* (from bot's perspective when the claw is facing in), it closes on 0 value
-        //hook1 goes up on 1 value, goes down on 0 value
-        //hook2 goes up on 1 value, goes down on 0 value
-
-        strafe_left(2000);
+        backward(500);
         stop(1000);
-        strafe_right(2000);
+        strafe_left(1300);
+        stop(1000);
+        backward(120);
+        stop(1000);
+        hookDown();
+
+        forward(1700);
+        stop(1000);
+        hookUp();
+
+        runIntakeOnWall(3400);
+
+        forward(200);
+
+        /*
+        strafe_left(3500);
+        i1.setPower(1);
+        i2.setPower(1);
+        sleep(5000);
+        */
 
 
 
@@ -106,9 +120,9 @@ public class autotest extends LinearOpMode
     //strafe left method
     public void strafe_left (int ms)
     {
-        l1.setPower(-0.5);
+        l1.setPower(-0.47);
         l2.setPower(0.5);
-        r1.setPower(0.47);
+        r1.setPower(0.5);
         r2.setPower(-0.5);
 
         sleep(ms);
@@ -152,7 +166,7 @@ public class autotest extends LinearOpMode
     //hook down method
     public void hookDown ()
     {
-        hook1.setPosition(0.7);
+        hook1.setPosition(0.70);
         sleep(1000);
         hook2.setPosition(0.25);
         sleep(1000);
@@ -186,6 +200,17 @@ public class autotest extends LinearOpMode
         r1.setPower(0);
         r2.setPower(0);
 
+        sleep(ms);
+    }
+
+    public void runIntakeOnWall (int ms)
+    {
+        l1.setPower(0.5);
+        l2.setPower(-0.5);
+        r1.setPower(-0.5);
+        r2.setPower(0.5);
+        i1.setPower(-1);
+        i2.setPower(-1);
         sleep(ms);
     }
 

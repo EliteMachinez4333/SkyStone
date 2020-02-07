@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo          ;
 import org.firstinspires.ftc.teamcode.Auto.AutoSubsystems;
 import org.firstinspires.ftc.teamcode.TeleOp.TeleOpSubsystems;
 
-@Autonomous(name="(Blue) Platform & Park", group="Autonomous")
-public class Blue_platform_and_park extends LinearOpMode
+@Autonomous(name="(Red) Platform & Park Against Bridge", group="Autonomous")
+public class Red_platform_and_park_against_bridge extends LinearOpMode
 {
     private static DcMotor l1, l2, r1, r2, i1, i2, linearSlide;
     private static Servo i3, i4, c1, c2, c3, hook1, hook2;
@@ -64,14 +64,36 @@ public class Blue_platform_and_park extends LinearOpMode
 
         backward(500);
         stop(1000);
-        strafe_right(700);
+        strafe_left(1300);
         stop(1000);
-        backward(100);
+        backward(120);
         stop(1000);
-       // hookDown();
-       // forward(1500);
-      //  hookUp();
-      //  strafe_left(1000);
+        hookDown();
+
+        forward(1700);
+        stop(1000);
+        hookUp();
+
+        runIntakeOnWall(2100);
+        stop(500);
+
+        backward(500);
+        stop(500);
+
+        strafe_right(1700);
+        stop(500);
+
+        backward(300);
+        stop(500);
+
+
+        /*
+        strafe_left(3500);
+        i1.setPower(1);
+        i2.setPower(1);
+        sleep(5000);
+        */
+
 
 
 
@@ -107,7 +129,7 @@ public class Blue_platform_and_park extends LinearOpMode
     //strafe left method
     public void strafe_left (int ms)
     {
-        l1.setPower(-0.5);
+        l1.setPower(-0.47);
         l2.setPower(0.5);
         r1.setPower(0.5);
         r2.setPower(-0.5);
@@ -144,25 +166,20 @@ public class Blue_platform_and_park extends LinearOpMode
     //hook up method
     public void hookUp ()
     {
-        //left hook
         hook1.setPosition(0);
-
-        //right hook
+        sleep(1000);
         hook2.setPosition(1);
-
-        sleep(2000);
+        sleep(1000);
     }
 
     //hook down method
     public void hookDown ()
     {
-        //right hook
-        hook1.setPosition(0.6);
-
-        //left hook
-        hook2.setPosition(0.5);
-
+        hook1.setPosition(0.70);
         sleep(1000);
+        hook2.setPosition(0.25);
+        sleep(1000);
+
     }
 
     //intake on method
@@ -192,6 +209,17 @@ public class Blue_platform_and_park extends LinearOpMode
         r1.setPower(0);
         r2.setPower(0);
 
+        sleep(ms);
+    }
+
+    public void runIntakeOnWall (int ms)
+    {
+        l1.setPower(0.5);
+        l2.setPower(-0.5);
+        r1.setPower(-0.5);
+        r2.setPower(0.5);
+        i1.setPower(-1);
+        i2.setPower(-1);
         sleep(ms);
     }
 

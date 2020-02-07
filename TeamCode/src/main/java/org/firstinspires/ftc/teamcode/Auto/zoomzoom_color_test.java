@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Auto;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -9,6 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo          ;
 import org.firstinspires.ftc.teamcode.Auto.AutoSubsystems;
 import org.firstinspires.ftc.teamcode.TeleOp.TeleOpSubsystems;
 
+@Disabled
 @Autonomous(name="Color Decision Test", group="Autonomous")
 public class zoomzoom_color_test extends LinearOpMode
 {

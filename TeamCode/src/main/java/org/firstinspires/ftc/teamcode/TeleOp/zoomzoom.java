@@ -14,7 +14,7 @@ public class zoomzoom extends OpMode
 
     private static final double TRIGGERTHRESHOLD = .2     ;
     private static final double ACCEPTINPUTTHRESHOLD = .15;
-    private static double SCALEDPOWER; //Emphasis on current controller reading (vs current motor power) on the drive train
+    private static final double SCALEDPOWER = 0.6; //Emphasis on current controller reading (vs current motor power) on the drive train
 
 
     //private static final double SCALEDPOWER = 0.4; //Emphasis on current controller reading (vs current motor power) on the drive train
@@ -71,16 +71,22 @@ public class zoomzoom extends OpMode
     {
 //--------------------------------------------------------------------------------------------------
         //turbo button
-        if (gamepad1.left_bumper){SCALEDPOWER = 1;}
-        else {SCALEDPOWER = 0.6;}
+
+
+        if (gamepad1.y)
+        {
+            i1.setPower(1);
+            i2.setPower(-1);
+        }
+
 
         //front intake control (rev core hex motors & servos)
         if (gamepad1.a)     //sucks
             {
-                i1.setPower(1);
-                i2.setPower(-1);
-                i3.setPosition(1);
-                i4.setPosition(-1);
+                i1.setPower(0.7);
+                i2.setPower(-0.7);
+                i3.setPosition(0.7);
+                i4.setPosition(-0.7);
             }
             else if (gamepad1.b)    //spits
             {
@@ -101,22 +107,28 @@ public class zoomzoom extends OpMode
         //control claw gripper
         if (gamepad2.x)
         {
+            //left claw
             c1.setPosition(1);
+
+            //right claw
             c2.setPosition(0);
         }
             else if (gamepad2.b)
             {
-                c1.setPosition(0);
-                c2.setPosition(1);
+                //left claw
+                c1.setPosition(0.2);
+
+                //right claw
+                c2.setPosition(0.8);
             }
 
 
         //control claw spinner
-        if (gamepad2.y)
+        if (gamepad2.a)
         {
             c3.setPosition(1);
         }
-            else if (gamepad2.a)
+            else if (gamepad2.y)
             {
                 c3.setPosition(0);
             }
@@ -126,10 +138,10 @@ public class zoomzoom extends OpMode
         if (gamepad1.dpad_down)
         {
             //left hook
-            hook1.setPosition(0.6); // decrease to go down more
+            hook1.setPosition(0.65); // decrease to go down more
 
             //right hook
-            hook2.setPosition(0.5); //increase to go down more
+            hook2.setPosition(0.25); //increase to go down more
 
         }
             else if (gamepad1.dpad_up)
